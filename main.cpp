@@ -4,5 +4,5 @@ int main(int argc, char *argv[], char *envp[])
 {
 	using namespace std;
 
-	cout << "Hello world.n" << endl;
+	cout << "Hello world" << endl;
 }
