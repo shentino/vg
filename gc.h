@@ -9,6 +9,7 @@ class gc
 
 public:
 	virtual ~gc();
+	virtual void prepare() = 0; // prepares gc for drawing, fixes size
 };
 
 #endif
