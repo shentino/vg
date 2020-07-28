@@ -6,6 +6,9 @@ class gc
 	gc();
 	gc(const gc &);
 	gc &operator=(const gc &);
+
+public:
+	virtual ~gc();
 };
 
 #endif
