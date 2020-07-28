@@ -3,6 +3,9 @@
 
 class gc
 {
+	gc();
+	gc(const gc &);
+	gc &operator=(const gc &);
 };
 
 #endif
