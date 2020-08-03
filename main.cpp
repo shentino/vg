@@ -25,7 +25,6 @@ static Mix_Chunk *zoominsound;
 static Mix_Chunk *zoomoutsound;
 static Mix_Chunk *oceansound;
 static Mix_Chunk *bumpsound;
-static Mix_Chunk *buzzersound;
 
 static inline int value(int x, int y)
 {
@@ -201,7 +200,6 @@ int main(int argc, char *argv[], char *envp[])
 	ticksound = Mix_LoadWAV("tick.wav");
 	zoominsound = Mix_LoadWAV("zoomin.wav");
 	zoomoutsound = Mix_LoadWAV("zoomout.wav");
-	buzzersound = Mix_LoadWAV("buzzer.wav");
 	oceansound = Mix_LoadWAV("ocean.wav");
 	bumpsound = Mix_LoadWAV("bump.wav");
 
@@ -267,7 +265,6 @@ int main(int argc, char *argv[], char *envp[])
 			// underrun
 			frametime = now;
 			frame = 0;
-			Mix_PlayChannel(1, buzzersound, 0);
 		} else {
 			usleep(usecs);
 		}
