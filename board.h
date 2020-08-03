@@ -19,7 +19,7 @@ public:
 	board(int x, int y);
 	virtual ~board();
 
-	void draw(gc *gc, int cellsize, int cx, int cy, int cc);
+	void draw(gc *gc, int cellsize, int cx, int cy, int cc) const;
 
 	uint8_t &cellat(int x, int y)
 	{
