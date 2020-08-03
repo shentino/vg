@@ -8,6 +8,7 @@
 
 #include "board.h"
 #include "sdlgc.h"
+#include "ui.h"
 
 using namespace std;
 
