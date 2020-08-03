@@ -17,7 +17,7 @@ board::~board()
 	sx = sy = -1;
 }
 
-void board::draw(gc *gc, int cx, int cy, int cc)
+void board::draw(gc *gc, int cellsize, int cx, int cy, int cc) const
 {
 	int gx, gy;
 	int ox, oy;
