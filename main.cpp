@@ -207,10 +207,7 @@ int main(int argc, char *argv[], char *envp[])
 		commit();
 
 		// rendering
-		gc.prepare();
-		gc.clear(0x0055aa); // ocean
-		b.draw(&gc, cx, cy, cursorcolor(t));
-		gc.render();
+		ui.draw(&gc, &b);
 
 		// delay
 		SDL_Delay(1000 / framerate);
