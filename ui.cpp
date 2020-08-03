@@ -11,7 +11,7 @@ void ui::draw(gc *g, const board *b)
 {
 	g->prepare();
 	g->clear(0x0055aa); // ocean
-	b->draw(g, zoom, cx, cy, (cursorframe / 5) & 1 ? 0xffffff : 0x000000);
+	b->draw(g, zoom, cx, cy, (cursorframe / 15) & 1 ? 0xffffff : 0x000000);
 	g->render();
 }
 
