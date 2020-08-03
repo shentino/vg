@@ -66,16 +66,13 @@ int main(int argc, char *argv[], char *envp[])
 {
 	int frame;
 	int t;
-	int cx, cy;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		throw runtime_error(SDL_GetError());
 	}
 
-	cx = 0;
-	cy = 0;
-
 	sdlgc gc("SDL Video Game Prototype");
+	ui ui;
 
 	Mix_Init(MIX_INIT_FLAC);
 
