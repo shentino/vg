@@ -16,17 +16,6 @@ static const int boardsize = 32;
 static short delta[boardsize * boardsize];
 static board b(boardsize, boardsize);
 
-static inline int cursorcolor(int tick)
-{
-	int r, g, b;
-
-	r = tick * 0x1;
-	g = tick * 0x1 + 0x55;
-	b = tick * 0x1 + 0xaa;
-
-	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-}
-
 static inline int value(int x, int y)
 {
 	int highest = 0;
