@@ -16,6 +16,9 @@ class ui
 
 	int cx, cy; // cursor position
 	int zoom; // zoom factor
+	int cursorframe; // which frame out of 60
+	// cursor flashes black and white twice a second
+	// 15 frames white, 15 frames black, repeat
 
 public:
 	void draw(gc *g, const board *b);
