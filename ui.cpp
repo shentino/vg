@@ -9,4 +9,8 @@ ui::ui()
 
 void ui::draw(gc *g, const board *b)
 {
+	g->prepare();
+	g->clear(0x0055aa); // ocean
+	b->draw(
+	g->render();
 }
