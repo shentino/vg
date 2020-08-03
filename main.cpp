@@ -65,9 +65,6 @@ static inline void commit()
 
 int main(int argc, char *argv[], char *envp[])
 {
-	int frame;
-	int t;
-
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		throw runtime_error(SDL_GetError());
 	}
@@ -212,8 +209,7 @@ int main(int argc, char *argv[], char *envp[])
 		// delay
 		SDL_Delay(1000 / framerate);
 
-		t += 0x11;
-		t &= 0xff;
+		ui.tick();
 	}
 
 quit:
