@@ -17,3 +17,5 @@ public:
 
 	void draw(gc *g, int cx, int cy, 
 };
+
+#endif SPRITE_H
