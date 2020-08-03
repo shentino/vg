@@ -14,11 +14,14 @@ class ui
 	ui(const ui &);
 	ui &operator=(const ui &);
 
-public:
 	int cx, cy; // cursor position
 	int zoom; // zoom factor
 
+public:
 	void draw(gc *g, const board *b);
+	void keyup(int key);
+	void keydown(int key);
+	void tick(); // once per frame
 };
 
 #endif
