@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include <sys/time.h>
+#include <unistd.h>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
@@ -24,6 +25,7 @@ static Mix_Chunk *zoominsound;
 static Mix_Chunk *zoomoutsound;
 static Mix_Chunk *oceansound;
 static Mix_Chunk *bumpsound;
+static Mix_Chunk *buzzersound;
 
 static inline int value(int x, int y)
 {
@@ -178,7 +180,7 @@ static void handle_events()
 int main(int argc, char *argv[], char *envp[])
 {
 	struct timeval frametime;
-	int frame; /* number of frames since last checkpoint */
+	int frame = 0; /* number of frames since last checkpoint */
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		throw runtime_error(SDL_GetError());
@@ -199,16 +201,28 @@ int main(int argc, char *argv[], char *envp[])
 	ticksound = Mix_LoadWAV("tick.wav");
 	zoominsound = Mix_LoadWAV("zoomin.wav");
 	zoomoutsound = Mix_LoadWAV("zoomout.wav");
+	buzzersound = Mix_LoadWAV("buzzer.wav");
 	oceansound = Mix_LoadWAV("ocean.wav");
 	bumpsound = Mix_LoadWAV("bump.wav");
 
 	Mix_PlayChannel(0, oceansound, -1);
 
-	gettimeofday(&frametime); // set timestamp of first frame
-	frame = 0;
+	gettimeofday(&frametime, NULL); // set timestamp of first frame
+
+	/* first frame */
+	handle_events();
+
+	if (quit) {
+		goto quit;
+	}
+
+	// draw initial board
+	ui.draw(&gc, &b);
 
 	for (;;) {
-		handle_events();
+		struct timeval future;
+
+		handle_events();		
 
 		if (quit) {
 			goto quit;
@@ -228,13 +242,35 @@ int main(int argc, char *argv[], char *envp[])
 		calculate();
 		commit();
 
-		// rendering
+		ui.tick();
 		ui.draw(&gc, &b);
 
-		// delay
-		SDL_Delay(1000 / framerate);
+		frame++;
 
-		ui.tick();
+		/* calculate when this frame should end */
+		future = frametime;
+
+		int usecs = frametime.tv_usec;
+		usecs += (1000000 * frame / 60);
+
+		future.tv_sec += usecs / 1000000;
+		future.tv_usec += usecs % 1000000;
+		
+		struct timeval now;
+		
+		gettimeofday(&now, NULL);
+
+		usecs = ((int)future.tv_sec - (int)now.tv_sec) * 1000000;
+		usecs += ((int)future.tv_usec - (int)now.tv_usec);
+
+		if (usecs < 0) {
+			// underrun
+			frametime = now;
+			frame = 0;
+			Mix_PlayChannel(1, buzzersound, 0);
+		} else {
+			usleep(usecs);
+		}
 	}
 
 quit:
