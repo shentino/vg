@@ -21,6 +21,7 @@ class ui
 	// 15 frames white, 15 frames black, repeat
 
 public:
+	ui();
 	void draw(gc *g, const board *b);
 	void keyup(int key);
 	void keydown(int key);
