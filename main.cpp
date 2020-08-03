@@ -177,6 +177,9 @@ static void handle_events()
 
 int main(int argc, char *argv[], char *envp[])
 {
+	struct timeval frametime;
+	int frame; /* number of frames since last checkpoint */
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		throw runtime_error(SDL_GetError());
 	}
