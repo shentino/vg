@@ -22,6 +22,9 @@ class ui
 
 public:
 	ui();
+
+	static void load_sounds();
+
 	void draw(gc *g, const board *b);
 	void keyup(int key);
 	void keydown(int key);
