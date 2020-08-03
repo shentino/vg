@@ -16,6 +16,14 @@ static const int framerate = 60;
 static const int boardsize = 32;
 static short delta[boardsize * boardsize];
 static board b(boardsize, boardsize);
+static bool quit = false;
+static ui ui;
+
+static Mix_Chunk *ticksound;
+static Mix_Chunk *zoominsound;
+static Mix_Chunk *zoomoutsound;
+static Mix_Chunk *oceansound;
+static Mix_Chunk *bumpsound;
 
 static inline int value(int x, int y)
 {
@@ -63,6 +71,110 @@ static inline void commit()
 	}
 }
 
+static void handle_events()
+{
+	SDL_Event e;
+
+	// event processing
+	while (SDL_PollEvent(&e)) {
+		switch (e.type) {
+		case SDL_QUIT:
+			// don't waste time doing anything else if we're quitting
+			// destructor for gc will handle our cleanup
+			quit = true;
+			return;
+
+		case SDL_KEYDOWN:
+			switch(e.key.keysym.scancode) {
+			/* zooming */
+			case SDL_SCANCODE_KP_PLUS:
+				if (ui.zoom < 64) {
+					Mix_PlayChannel(1, zoominsound, 0);
+					ui.zoom++;
+				} else {
+					Mix_PlayChannel(1, bumpsound, 0);
+				}
+				break;
+
+			case SDL_SCANCODE_KP_MINUS:
+				if (ui.zoom > 1) {
+					Mix_PlayChannel(1, zoomoutsound, 0);
+					ui.zoom--;
+				} else {
+					Mix_PlayChannel(1, bumpsound, 0);
+				}
+				break;
+
+			/* cursor movement */
+			case SDL_SCANCODE_RIGHT:
+				if (ui.cx < boardsize - 1) {
+					Mix_PlayChannel(1, ticksound, 0);
+					ui.cx++;
+				} else {
+					Mix_PlayChannel(1, bumpsound, 0);
+				}
+				break;
+
+			case SDL_SCANCODE_LEFT:
+				if (ui.cx > 0) {
+					Mix_PlayChannel(1, ticksound, 0);
+					ui.cx--;
+				} else {
+					Mix_PlayChannel(1, bumpsound, 0);
+				}
+				break;
+
+			case SDL_SCANCODE_DOWN:
+				if (ui.cy < boardsize - 1) {
+					Mix_PlayChannel(1, ticksound, 0);
+					ui.cy++;
+				} else {
+					Mix_PlayChannel(1, bumpsound, 0);
+				}
+				break;
+
+			case SDL_SCANCODE_UP:
+				if (ui.cy > 0) {
+					Mix_PlayChannel(1, ticksound, 0);
+					ui.cy--;
+				} else {
+					Mix_PlayChannel(1, bumpsound, 0);
+				}
+				break;
+
+			/* commands */
+			case SDL_SCANCODE_A:
+				for (int y = 0; y < boardsize; y++) {
+					for (int x = 0; x < boardsize; x++) {
+						b.cellat(x, y) = 0xff;
+					}
+				}
+				break;
+
+			case SDL_SCANCODE_B:
+				for (int y = 0; y < boardsize; y++) {
+					for (int x = 0; x < boardsize; x++) {
+						b.cellat(x, y) = 0x55;
+					}
+				}
+				break;
+
+			case SDL_SCANCODE_C:
+				for (int x = 0; x < boardsize; x++) {
+					b.cellat(x, ui.cy) = 0xff;
+				}
+				break;
+
+			case SDL_SCANCODE_D:
+				for (int y = 0; y < boardsize; y++) {
+					b.cellat(ui.cx, y) = 0xff;
+				}
+				break;
+			}
+		}
+	}
+}
+
 int main(int argc, char *argv[], char *envp[])
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -70,7 +182,6 @@ int main(int argc, char *argv[], char *envp[])
 	}
 
 	sdlgc gc("SDL Video Game Prototype");
-	ui ui;
 
 	Mix_Init(MIX_INIT_FLAC);
 
@@ -78,115 +189,26 @@ int main(int argc, char *argv[], char *envp[])
 		throw runtime_error(Mix_GetError());
 	}
 
-	Mix_AllocateChannels(3);
+	Mix_AllocateChannels(2);
+	// 0 = music
+	// 1 = ui
 
-	Mix_Chunk *ticksound = Mix_LoadWAV("tick.wav");
-	Mix_Chunk *zoominsound = Mix_LoadWAV("zoomin.wav");
-	Mix_Chunk *zoomoutsound = Mix_LoadWAV("zoomout.wav");
-	Mix_Chunk *oceansound = Mix_LoadWAV("ocean.wav");
-	Mix_Chunk *bumpsound = Mix_LoadWAV("bump.wav");
+	ticksound = Mix_LoadWAV("tick.wav");
+	zoominsound = Mix_LoadWAV("zoomin.wav");
+	zoomoutsound = Mix_LoadWAV("zoomout.wav");
+	oceansound = Mix_LoadWAV("ocean.wav");
+	bumpsound = Mix_LoadWAV("bump.wav");
 
-	Mix_PlayChannel(2, oceansound, -1);
+	Mix_PlayChannel(0, oceansound, -1);
+
+	gettimeofday(&frametime); // set timestamp of first frame
+	frame = 0;
 
 	for (;;) {
-		SDL_Event e;
+		handle_events();
 
-		// event processing
-		while (SDL_PollEvent(&e)) {
-			switch (e.type) {
-			case SDL_QUIT:
-				// don't waste time doing anything else if we're quitting
-				// destructor for gc will handle our cleanup
-				goto quit;
-
-			case SDL_KEYDOWN:
-				switch(e.key.keysym.scancode) {
-				/* zooming */
-				case SDL_SCANCODE_KP_PLUS:
-					if (ui.zoom < 64) {
-						Mix_PlayChannel(1, zoominsound, 0);
-						ui.zoom++;
-					} else {
-						Mix_PlayChannel(1, bumpsound, 0);
-					}
-					break;
-
-				case SDL_SCANCODE_KP_MINUS:
-					if (ui.zoom > 1) {
-						Mix_PlayChannel(1, zoomoutsound, 0);
-						ui.zoom--;
-					} else {
-						Mix_PlayChannel(1, bumpsound, 0);
-					}
-					break;
-
-				/* cursor movement */
-				case SDL_SCANCODE_RIGHT:
-					if (ui.cx < boardsize - 1) {
-						Mix_PlayChannel(0, ticksound, 0);
-						ui.cx++;
-					} else {
-						Mix_PlayChannel(1, bumpsound, 0);
-					}
-					break;
-
-				case SDL_SCANCODE_LEFT:
-					if (ui.cx > 0) {
-						Mix_PlayChannel(0, ticksound, 0);
-						ui.cx--;
-					} else {
-						Mix_PlayChannel(1, bumpsound, 0);
-					}
-					break;
-
-				case SDL_SCANCODE_DOWN:
-					if (ui.cy < boardsize - 1) {
-						Mix_PlayChannel(0, ticksound, 0);
-						ui.cy++;
-					} else {
-						Mix_PlayChannel(1, bumpsound, 0);
-					}
-					break;
-
-				case SDL_SCANCODE_UP:
-					if (ui.cy > 0) {
-						Mix_PlayChannel(0, ticksound, 0);
-						ui.cy--;
-					} else {
-						Mix_PlayChannel(1, bumpsound, 0);
-					}
-					break;
-
-				/* commands */
-				case SDL_SCANCODE_A:
-					for (int y = 0; y < boardsize; y++) {
-						for (int x = 0; x < boardsize; x++) {
-							b.cellat(x, y) = 0xff;
-						}
-					}
-					break;
-
-				case SDL_SCANCODE_B:
-					for (int y = 0; y < boardsize; y++) {
-						for (int x = 0; x < boardsize; x++) {
-							b.cellat(x, y) = 0x55;
-						}
-					}
-					break;
-
-				case SDL_SCANCODE_C:
-					for (int x = 0; x < boardsize; x++) {
-						b.cellat(x, ui.cy) = 0xff;
-					}
-					break;
-
-				case SDL_SCANCODE_D:
-					for (int y = 0; y < boardsize; y++) {
-						b.cellat(ui.cx, y) = 0xff;
-					}
-					break;
-				}
-			}
+		if (quit) {
+			goto quit;
 		}
 
 		// game logic
