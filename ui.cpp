@@ -14,3 +14,9 @@ void ui::draw(gc *g, const board *b)
 	b->draw(g, zoom, cx, cy, (cursorframe / 15) & 1 ? 0xffffff : 0x000000);
 	g->render();
 }
+
+void ui::tick()
+{
+	cursorframe++;
+	cursorframe %= 60;
+}
