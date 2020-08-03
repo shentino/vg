@@ -106,18 +106,18 @@ int main(int argc, char *argv[], char *envp[])
 				switch(e.key.keysym.scancode) {
 				/* zooming */
 				case SDL_SCANCODE_KP_PLUS:
-					if (board::cellsize < 64) {
+					if (ui.zoom < 64) {
 						Mix_PlayChannel(1, zoominsound, 0);
-						board::cellsize++;
+						ui.zoom++;
 					} else {
 						Mix_PlayChannel(1, bumpsound, 0);
 					}
 					break;
 
 				case SDL_SCANCODE_KP_MINUS:
-					if (board::cellsize > 0) {
+					if (ui.zoom > 1) {
 						Mix_PlayChannel(1, zoomoutsound, 0);
-						board::cellsize--;
+						ui.zoom--;
 					} else {
 						Mix_PlayChannel(1, bumpsound, 0);
 					}
@@ -125,36 +125,36 @@ int main(int argc, char *argv[], char *envp[])
 
 				/* cursor movement */
 				case SDL_SCANCODE_RIGHT:
-					if (cx < boardsize - 1) {
+					if (ui.cx < boardsize - 1) {
 						Mix_PlayChannel(0, ticksound, 0);
-						cx++;
+						ui.cx++;
 					} else {
 						Mix_PlayChannel(1, bumpsound, 0);
 					}
 					break;
 
 				case SDL_SCANCODE_LEFT:
-					if (cx > 0) {
+					if (ui.cx > 0) {
 						Mix_PlayChannel(0, ticksound, 0);
-						cx--;
+						ui.cx--;
 					} else {
 						Mix_PlayChannel(1, bumpsound, 0);
 					}
 					break;
 
 				case SDL_SCANCODE_DOWN:
-					if (cy < boardsize - 1) {
+					if (ui.cy < boardsize - 1) {
 						Mix_PlayChannel(0, ticksound, 0);
-						cy++;
+						ui.cy++;
 					} else {
 						Mix_PlayChannel(1, bumpsound, 0);
 					}
 					break;
 
 				case SDL_SCANCODE_UP:
-					if (cy > 0) {
+					if (ui.cy > 0) {
 						Mix_PlayChannel(0, ticksound, 0);
-						cy--;
+						ui.cy--;
 					} else {
 						Mix_PlayChannel(1, bumpsound, 0);
 					}
@@ -179,13 +179,13 @@ int main(int argc, char *argv[], char *envp[])
 
 				case SDL_SCANCODE_C:
 					for (int x = 0; x < boardsize; x++) {
-						b.cellat(x, cy) = 0xff;
+						b.cellat(x, ui.cy) = 0xff;
 					}
 					break;
 
 				case SDL_SCANCODE_D:
 					for (int y = 0; y < boardsize; y++) {
-						b.cellat(cx, y) = 0xff;
+						b.cellat(ui.cx, y) = 0xff;
 					}
 					break;
 				}
@@ -193,7 +193,7 @@ int main(int argc, char *argv[], char *envp[])
 		}
 
 		// game logic
-		uint8_t &c = b.cellat(cx, cy);
+		uint8_t &c = b.cellat(ui.cx, ui.cy);
 
 		for (int i = 0; i < 10; i++) {
 			if (c < 0xff) {
