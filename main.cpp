@@ -269,6 +269,7 @@ int main(int argc, char *argv[], char *envp[])
 			// underrun
 			frametime = now;
 			frame = 0;
+			ui.lagged();
 		} else {
 			usleep(usecs);
 		}
@@ -279,4 +280,3 @@ quit:
 	Mix_Quit();
 	SDL_Quit();
 }
-

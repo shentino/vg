@@ -6,6 +6,8 @@ this includes cursor position and zoom level and anything that the board and gc 
 #ifndef UI_H
 #define UI_H
 
+#include <cstdint>
+
 class gc;
 class board;
 
@@ -14,7 +16,8 @@ class ui
 	ui(const ui &);
 	ui &operator=(const ui &);
 
-	int cursorframe; // which frame out of 60
+	uint8_t lag;
+	uint8_t cursorframe; // which frame out of 60
 	// cursor flashes black and white twice a second
 	// 15 frames white, 15 frames black, repeat
 
@@ -26,6 +29,7 @@ public:
 
 	void draw(gc *g, const board *b);
 	void tick(); // once per frame
+	void lagged(); // flag a lag so we can send an "ouch" color
 };
 
 #endif
