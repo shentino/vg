@@ -244,12 +244,16 @@ int main(int argc, char *argv[], char *envp[])
 		ui.draw(&gc, &b);
 
 		frame++;
+		if (frame >= framerate) {
+			frame -= framerate;
+			frametime.tv_sec++;
+		}
 
 		/* calculate when this frame should end */
 		future = frametime;
 
 		int usecs = frametime.tv_usec;
-		usecs += (1000000 * frame / 60);
+		usecs += (1000000 * frame / framerate);
 
 		future.tv_sec += usecs / 1000000;
 		future.tv_usec += usecs % 1000000;
