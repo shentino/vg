@@ -14,8 +14,6 @@ class board
 	board();
 
 public:
-	static int cellsize;
-
 	board(int x, int y);
 	virtual ~board();
 

@@ -3,8 +3,6 @@
 #include "board.h"
 #include "gc.h"
 
-int board::cellsize = 32;
-
 board::board(int x, int y)
 :sx(x),sy(y)
 {
