@@ -197,11 +197,11 @@ int main(int argc, char *argv[], char *envp[])
 	// 0 = music
 	// 1 = ui
 
-	ticksound = Mix_LoadWAV("tick.wav");
-	zoominsound = Mix_LoadWAV("zoomin.wav");
-	zoomoutsound = Mix_LoadWAV("zoomout.wav");
-	oceansound = Mix_LoadWAV("ocean.wav");
-	bumpsound = Mix_LoadWAV("bump.wav");
+	ticksound = Mix_LoadWAV("sound/tick.wav");
+	zoominsound = Mix_LoadWAV("sound/zoomin.wav");
+	zoomoutsound = Mix_LoadWAV("sound/zoomout.wav");
+	oceansound = Mix_LoadWAV("sound/ocean.wav");
+	bumpsound = Mix_LoadWAV("sound/bump.wav");
 
 	Mix_PlayChannel(0, oceansound, -1);
 
