@@ -4,12 +4,10 @@
 
 #include <SDL2/SDL.h>
 
-#include "gc.h"
+#include "sdlgc.h"
 
-class sdlglgc: public gc
+class sdlglgc: public sdlgc
 {
-	SDL_Window *win;
-
 public:
 	sdlglgc(const char *title);
 	virtual ~sdlglgc();
