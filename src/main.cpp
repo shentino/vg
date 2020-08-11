@@ -7,6 +7,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
+#include <GL/gl.h>
+#include <GL/glu.h>
+
 #include "board.h"
 #include "sdlgc.h"
 #include "ui.h"
@@ -244,6 +247,7 @@ int main(int argc, char *argv[], char *envp[])
 		ui.draw(&gc, &b);
 
 		frame++;
+
 		if (frame >= framerate) {
 			frame -= framerate;
 			frametime.tv_sec++;
@@ -257,9 +261,9 @@ int main(int argc, char *argv[], char *envp[])
 
 		future.tv_sec += usecs / 1000000;
 		future.tv_usec += usecs % 1000000;
-		
+
 		struct timeval now;
-		
+
 		gettimeofday(&now, NULL);
 
 		usecs = ((int)future.tv_sec - (int)now.tv_sec) * 1000000;
