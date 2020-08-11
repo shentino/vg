@@ -20,8 +20,6 @@ sdlgc::sdlgc(const char *title)
 	if (!win) {
 		throw runtime_error(SDL_GetError());
 	}
-
-	SDL_MaximizeWindow(win);
 }
 
 sdlgc::~sdlgc()
