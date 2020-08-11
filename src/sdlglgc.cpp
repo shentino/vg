@@ -33,11 +33,6 @@ sdlglgc::sdlglgc(const char *title)
 	SDL_MaximizeWindow(win);
 }
 
-sdlglgc::~sdlglgc()
-{
-	SDL_DestroyWindow(win);
-}
-
 virtual void prepare()
 {
 }
