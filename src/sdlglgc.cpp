@@ -28,3 +28,7 @@ sdlglgc::sdlglgc(const char *title)
 
 	SDL_MaximizeWindow(win);
 }
+
+sdlglgc::~sdlglgc()
+{
+}
