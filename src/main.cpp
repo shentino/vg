@@ -7,11 +7,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-
 #include "board.h"
 #include "sdlgc.h"
+#include "sdlglgc.h"
 #include "ui.h"
 
 using namespace std;
