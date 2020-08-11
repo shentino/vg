@@ -12,6 +12,8 @@ class sdlgc: public gc
 protected:
 	SDL_Window *win;
 
+	sdlgc();
+
 public:
 	sdlgc(const char *title);
 	virtual ~sdlgc();
