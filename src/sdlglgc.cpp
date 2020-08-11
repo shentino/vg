@@ -1,15 +1,11 @@
+#include <stdexcept>
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 
 #include <SDL2/SDL.h>
 
 #include "sdlglgc.h"
-
-#include <stdexcept>
-
-#include <SDL2/SDL.h>
-
-#include "sdlgc.h"
 
 using namespace std;
 
