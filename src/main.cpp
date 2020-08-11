@@ -217,7 +217,8 @@ int main(int argc, char *argv[], char *envp[])
 	}
 
 	// draw initial board
-	ui.draw(&gc, &b);
+	ui.draw(&sgc, &b);
+	ui.draw(&ggc, &b);
 
 	for (;;) {
 		struct timeval future;
