@@ -19,4 +19,5 @@ ui.o: ui.cpp ui.h
 	g++ -c ui.cpp -o ui.o
 sdlgc.o: sdlgc.cpp gc.h sdlgc.h
 	g++ -c sdlgc.cpp -o sdlgc.o `sdl2-config --cflags`
-
+sdlglgc.o: sdlglgc.cpp gc.h sdlgc.h sdlglgc.h
+	g++ -c sdlglgc.cpp -o sdlglgc.o `sdl2-config --cflags`
