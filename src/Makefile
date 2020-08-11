@@ -1,13 +1,13 @@
-install: sdlvg
-	cp sdlvg ../bin/sdlvg
+install: vg
+	cp vg ../bin/vg
 
-sdlvg: main.o sdlgc.o board.o gc.o ui.o
-	g++ -o sdlvg main.o sdlgc.o board.o gc.o ui.o `sdl2-config --libs` -lSDL2_mixer
+vg: main.o sdlgc.o board.o gc.o ui.o
+	g++ -o vg main.o sdlgc.o board.o gc.o ui.o `sdl2-config --libs` -lSDL2_mixer
 
 .PHONY: clean install
 
 clean:
-	rm *.o sdlvg
+	rm *.o vg
 
 main.o: main.cpp sdlgc.h gc.h
 	g++ -c main.cpp -o main.o `sdl2-config --cflags` -ggdb3
