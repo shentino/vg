@@ -86,6 +86,22 @@ static void handle_events()
 			quit = true;
 			return;
 
+		case SDL_WINDOWEVENT:
+			// something's going on with one of our windows
+			switch(e.window.event) {
+			case SDL_WINDOWEVENT_CLOSE:
+				// close means quit
+				quit = true;
+				return;
+
+			case SDL_WINDOWEVENT_RESIZE:
+				// just to note that we don't care about this.
+				// the gc's query the window size for every frame they draw, and if
+				// we get resized in the middle of a frame there's nothing we can do about it anyway
+				break;
+			}
+			break;
+
 		case SDL_KEYDOWN:
 			switch(e.key.keysym.scancode) {
 			/* zooming */
