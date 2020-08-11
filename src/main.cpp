@@ -195,7 +195,10 @@ static void handle_events()
 
 int main(int argc, char *argv[], char *envp[])
 {
+	struct timeval now;
 	struct timeval frametime;
+	struct timeval future;
+
 	int frame = 0; /* number of frames since last checkpoint */
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -223,11 +226,13 @@ int main(int argc, char *argv[], char *envp[])
 
 	Mix_PlayChannel(0, oceansound, -1);
 
-	gettimeofday(&frametime, NULL); // set timestamp of first frame
+	// set timestamp of first frame
+	gettimeofday(&now, NULL);
+	frametime = now;
+	frame = 0;
 
 	/* first frame */
 	handle_events();
-
 	if (quit) {
 		goto quit;
 	}
@@ -236,9 +241,9 @@ int main(int argc, char *argv[], char *envp[])
 	ui.draw(&sgc, &b);
 	ui.draw(&ggc, &b);
 
-	for (;;) {
-		struct timeval future;
+	/* end of first frame */
 
+	for (;;) {
 		handle_events();		
 
 		if (quit) {
@@ -270,27 +275,28 @@ int main(int argc, char *argv[], char *envp[])
 			frametime.tv_sec++;
 		}
 
-		/* calculate when this frame should end */
-		future = frametime;
+		// wait for the next frame
 
-		int usecs = frametime.tv_usec;
-		usecs += (1000000 * frame / framerate);
+		// first, calculate when we should resume
+		int usec = (1000000 * frame / framerate) + frametime.tv_usec;
+		int sec = frametime.tv_sec;
 
-		future.tv_sec += usecs / 1000000;
-		future.tv_usec += usecs % 1000000;
+		sec += usec / 1000000;
+		usec %= 1000000;
 
-		struct timeval now;
+		future.tv_sec = sec;
+		future.tv_usec = usec;
 
+		// second, calculate how long to delay
 		gettimeofday(&now, NULL);
 
-		usecs = ((int)future.tv_sec - (int)now.tv_sec) * 1000000;
+		int usecs = ((int)future.tv_sec - (int)now.tv_sec) * 1000000;
 		usecs += ((int)future.tv_usec - (int)now.tv_usec);
 
 		if (usecs < 0) {
 			// underrun
 			frametime = now;
 			frame = 0;
-			ui.lagged();
 		} else {
 			usleep(usecs);
 		}
