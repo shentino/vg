@@ -6,6 +6,10 @@
 
 using namespace std;
 
+sdlgc::sdlgc()
+{
+}
+
 sdlgc::sdlgc(const char *title)
 {
 	win = SDL_CreateWindow(title
