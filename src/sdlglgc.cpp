@@ -19,7 +19,7 @@ sdlglgc::sdlglgc(const char *title)
 
 	win = SDL_CreateWindow(title
 		, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED
-		, 640, 480, SDL_WINDOW_RESIZABLE | SDL_OPENGL
+		, 640, 480, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL
 	);
 
 	if (!win) {
