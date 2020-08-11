@@ -4,7 +4,7 @@ sdlvg: main.o sdlgc.o board.o gc.o ui.o
 .PHONY: clean
 
 clean:
-	rm *.o
+	rm *.o sdlvg
 
 main.o: main.cpp sdlgc.h gc.h
 	g++ -c main.cpp -o main.o `sdl2-config --cflags` -ggdb3
