@@ -186,7 +186,8 @@ int main(int argc, char *argv[], char *envp[])
 		throw runtime_error(SDL_GetError());
 	}
 
-	sdlgc gc("SDL Video Game Prototype");
+	sdlgc sgc("SDL Video Game Prototype - SDL");
+	sdlglgc ggc("SDL Video Game Prototype - GL");
 
 	Mix_Init(MIX_INIT_FLAC);
 
@@ -242,7 +243,8 @@ int main(int argc, char *argv[], char *envp[])
 		commit();
 
 		ui.tick();
-		ui.draw(&gc, &b);
+		ui.draw(&sgc, &b);
+		ui.draw(&ggc, &b);
 
 		frame++;
 
