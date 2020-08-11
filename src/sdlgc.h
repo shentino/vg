@@ -7,8 +7,10 @@
 
 class sdlgc: public gc
 {
-	SDL_Window *win;
 	SDL_Surface *scr;
+
+protected:
+	SDL_Window *win;
 
 public:
 	sdlgc(const char *title);
