@@ -94,7 +94,7 @@ static void handle_events()
 				quit = true;
 				return;
 
-			case SDL_WINDOWEVENT_RESIZE:
+			case SDL_WINDOWEVENT_RESIZED:
 				// just to note that we don't care about this.
 				// the gc's query the window size for every frame they draw, and if
 				// we get resized in the middle of a frame there's nothing we can do about it anyway
