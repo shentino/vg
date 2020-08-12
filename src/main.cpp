@@ -21,11 +21,11 @@ static board b(boardsize, boardsize);
 static bool quit = false;
 static ui ui;
 
-static Mix_Chunk *ticksound;
-static Mix_Chunk *zoominsound;
-static Mix_Chunk *zoomoutsound;
-static Mix_Chunk *oceansound;
-static Mix_Chunk *bumpsound;
+static Mix_Chunk *oceansound; // background sound
+
+static Mix_Chunk *ticksound; // the cursor moved
+static Mix_Chunk *zoomsound; // we zoomed in or out
+static Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
 
 static inline int value(int x, int y)
 {
@@ -107,7 +107,7 @@ static void handle_events()
 			/* zooming */
 			case SDL_SCANCODE_KP_PLUS:
 				if (ui.zoom < 64) {
-					Mix_PlayChannel(1, zoominsound, 0);
+					Mix_PlayChannel(1, zoomsound, 0);
 					ui.zoom++;
 				} else {
 					Mix_PlayChannel(1, bumpsound, 0);
@@ -116,7 +116,7 @@ static void handle_events()
 
 			case SDL_SCANCODE_KP_MINUS:
 				if (ui.zoom > 1) {
-					Mix_PlayChannel(1, zoomoutsound, 0);
+					Mix_PlayChannel(1, zoomsound, 0);
 					ui.zoom--;
 				} else {
 					Mix_PlayChannel(1, bumpsound, 0);
