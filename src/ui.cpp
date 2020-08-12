@@ -13,21 +13,13 @@ ui::ui()
 
 void ui::draw(gc *g, const board *b)
 {
-	float phase;
-	uint8_t val;
+	int red, green, blue;
 
-	phase = (float)cursorframe; // extract which frame of this second we're in
-	phase /= 60.0f; // normalize to [0, 1)
-	phase *= pi * 2.0f; // convert to radians
-	phase *= 2.0f; // two blinks per second
-	phase = sinf(phase); // [-1, 1]
-	phase *= 63.5f; // [-127.5, 127.5]
-	phase += 127.5f; // [0.0, 255.0]
-	val = (uint8_t)nearbyintf(phase)
+	red = green = blue = ((cursorframe / 15) & 1) ? 0xff : 0x00;
 
 	g->prepare();
 	g->clear(0x0055aa + (lag << 16)); // ocean
-	b->draw(g, zoom, cx, cy, val | (val << 8) | (val << 16));
+	b->draw(g, zoom, cx, cy, blue | (green << 8) | (red << 16));
 	g->render();
 }
 
