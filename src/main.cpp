@@ -27,6 +27,9 @@ static Mix_Chunk *ticksound; // the cursor moved
 static Mix_Chunk *zoomsound; // we zoomed in or out
 static Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
 
+static Uint32 sdlwinid;
+static Uint32 openglwinid;
+
 static int value(int x, int y)
 {
 	int highest = 0;
@@ -213,6 +216,9 @@ int main(int argc, char *argv[], char *envp[])
 
 	sdlgc sgc("SDL Video Game Prototype - SDL");
 	sdlglgc ggc("SDL Video Game Prototype - GL");
+
+	sdlwinid = sgc.getwindowid();
+	openglwinid = ggc.getwindowid();
 
 	Mix_Init(MIX_INIT_FLAC);
 
