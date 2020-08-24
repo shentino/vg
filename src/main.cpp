@@ -166,6 +166,10 @@ static void handle_keydown(SDL_Event &e)
 	}
 }
 
+static void handle_mousemotion(SDL_Event &e)
+{
+}
+
 static void handle_events()
 {
 	SDL_Event e;
@@ -197,6 +201,10 @@ static void handle_events()
 
 		case SDL_KEYDOWN:
 			handle_keydown(e);
+			break;
+
+		case SDL_MOUSEMOTION:
+			handle_mousemotion(e);
 			break;
 		}
 	}
