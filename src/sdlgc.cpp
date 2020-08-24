@@ -27,6 +27,17 @@ sdlgc::~sdlgc()
 	SDL_DestroyWindow(win);
 }
 
+Uint32 sdlgc::getwindowid()
+{
+	Uint32 id = SDL_GetWindowID(win);
+
+	if (id == 0) {
+		throw runtime_error(SDL_GetError());
+	}
+
+	return id;
+}
+
 /* frame management */
 
 void sdlgc::prepare()

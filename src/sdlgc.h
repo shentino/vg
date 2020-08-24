@@ -18,6 +18,8 @@ public:
 	sdlgc(const char *title);
 	virtual ~sdlgc();
 
+	Uint32 getwindowid();
+
 	virtual void prepare();
 	virtual void render();
 
