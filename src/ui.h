@@ -23,6 +23,8 @@ class ui
 
 public:
 	int cx, cy; // cursor position
+	int mx, my; // mouse position
+	uint32_t mcolor; // mouse color
 	int zoom; // zoom factor
 
 	ui();

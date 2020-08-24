@@ -168,6 +168,16 @@ static void handle_keydown(SDL_Event &e)
 
 static void handle_mousemotion(SDL_Event &e)
 {
+	if (e.motion.windowID == sdlwinid) {
+		ui.mcolor = 0xaa0000;
+	} else if (e.motion.windowID == openglwinid) {
+		ui.mcolor = 0x00aa00;
+	} else {
+		throw logic_error("Received an event for unexpected window");
+	}
+
+	ui.mx = e.motion.x;
+	ui.my = e.motion.y;
 }
 
 static void handle_events()
