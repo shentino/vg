@@ -73,6 +73,96 @@ static void commit()
 	}
 }
 
+static void handle_keydown_event(SDL_Event &e)
+{
+	switch(e.key.keysym.scancode) {
+	/* zooming */
+	case SDL_SCANCODE_KP_PLUS:
+		if (ui.zoom < 64) {
+			Mix_PlayChannel(1, zoomsound, 0);
+			ui.zoom++;
+		} else {
+			Mix_PlayChannel(1, bumpsound, 0);
+		}
+		break;
+
+	case SDL_SCANCODE_KP_MINUS:
+		if (ui.zoom > 1) {
+			Mix_PlayChannel(1, zoomsound, 0);
+			ui.zoom--;
+		} else {
+			Mix_PlayChannel(1, bumpsound, 0);
+		}
+		break;
+
+	/* cursor movement */
+	case SDL_SCANCODE_RIGHT:
+		if (ui.cx < boardsize - 1) {
+			Mix_PlayChannel(1, ticksound, 0);
+			ui.cx++;
+		} else {
+			Mix_PlayChannel(1, bumpsound, 0);
+		}
+		break;
+
+	case SDL_SCANCODE_LEFT:
+		if (ui.cx > 0) {
+			Mix_PlayChannel(1, ticksound, 0);
+			ui.cx--;
+		} else {
+			Mix_PlayChannel(1, bumpsound, 0);
+		}
+		break;
+
+	case SDL_SCANCODE_DOWN:
+		if (ui.cy < boardsize - 1) {
+			Mix_PlayChannel(1, ticksound, 0);
+			ui.cy++;
+		} else {
+			Mix_PlayChannel(1, bumpsound, 0);
+		}
+		break;
+
+	case SDL_SCANCODE_UP:
+		if (ui.cy > 0) {
+			Mix_PlayChannel(1, ticksound, 0);
+			ui.cy--;
+		} else {
+			Mix_PlayChannel(1, bumpsound, 0);
+		}
+		break;
+
+	/* commands */
+	case SDL_SCANCODE_A:
+		for (int y = 0; y < boardsize; y++) {
+			for (int x = 0; x < boardsize; x++) {
+				b.cellat(x, y) = 0xff;
+			}
+		}
+		break;
+
+	case SDL_SCANCODE_B:
+		for (int y = 0; y < boardsize; y++) {
+			for (int x = 0; x < boardsize; x++) {
+				b.cellat(x, y) = 0x55;
+			}
+		}
+		break;
+
+	case SDL_SCANCODE_C:
+		for (int x = 0; x < boardsize; x++) {
+			b.cellat(x, ui.cy) = 0xff;
+		}
+		break;
+
+	case SDL_SCANCODE_D:
+		for (int y = 0; y < boardsize; y++) {
+			b.cellat(ui.cx, y) = 0xff;
+		}
+		break;
+	}
+}
+
 static void handle_events()
 {
 	SDL_Event e;
@@ -103,92 +193,8 @@ static void handle_events()
 			break;
 
 		case SDL_KEYDOWN:
-			switch(e.key.keysym.scancode) {
-			/* zooming */
-			case SDL_SCANCODE_KP_PLUS:
-				if (ui.zoom < 64) {
-					Mix_PlayChannel(1, zoomsound, 0);
-					ui.zoom++;
-				} else {
-					Mix_PlayChannel(1, bumpsound, 0);
-				}
-				break;
-
-			case SDL_SCANCODE_KP_MINUS:
-				if (ui.zoom > 1) {
-					Mix_PlayChannel(1, zoomsound, 0);
-					ui.zoom--;
-				} else {
-					Mix_PlayChannel(1, bumpsound, 0);
-				}
-				break;
-
-			/* cursor movement */
-			case SDL_SCANCODE_RIGHT:
-				if (ui.cx < boardsize - 1) {
-					Mix_PlayChannel(1, ticksound, 0);
-					ui.cx++;
-				} else {
-					Mix_PlayChannel(1, bumpsound, 0);
-				}
-				break;
-
-			case SDL_SCANCODE_LEFT:
-				if (ui.cx > 0) {
-					Mix_PlayChannel(1, ticksound, 0);
-					ui.cx--;
-				} else {
-					Mix_PlayChannel(1, bumpsound, 0);
-				}
-				break;
-
-			case SDL_SCANCODE_DOWN:
-				if (ui.cy < boardsize - 1) {
-					Mix_PlayChannel(1, ticksound, 0);
-					ui.cy++;
-				} else {
-					Mix_PlayChannel(1, bumpsound, 0);
-				}
-				break;
-
-			case SDL_SCANCODE_UP:
-				if (ui.cy > 0) {
-					Mix_PlayChannel(1, ticksound, 0);
-					ui.cy--;
-				} else {
-					Mix_PlayChannel(1, bumpsound, 0);
-				}
-				break;
-
-			/* commands */
-			case SDL_SCANCODE_A:
-				for (int y = 0; y < boardsize; y++) {
-					for (int x = 0; x < boardsize; x++) {
-						b.cellat(x, y) = 0xff;
-					}
-				}
-				break;
-
-			case SDL_SCANCODE_B:
-				for (int y = 0; y < boardsize; y++) {
-					for (int x = 0; x < boardsize; x++) {
-						b.cellat(x, y) = 0x55;
-					}
-				}
-				break;
-
-			case SDL_SCANCODE_C:
-				for (int x = 0; x < boardsize; x++) {
-					b.cellat(x, ui.cy) = 0xff;
-				}
-				break;
-
-			case SDL_SCANCODE_D:
-				for (int y = 0; y < boardsize; y++) {
-					b.cellat(ui.cx, y) = 0xff;
-				}
-				break;
-			}
+			handle_keydown_event(e);
+			break;
 		}
 	}
 }
