@@ -229,6 +229,7 @@ int main(int argc, char *argv[], char *envp[])
 	oceansound = Mix_LoadWAV("sound/ocean.wav");
 	bumpsound = Mix_LoadWAV("sound/bump.wav");
 
+	Mix_Volume(0, MIX_MAX_VOLUME / 2);
 	Mix_PlayChannel(0, oceansound, -1);
 
 	// set timestamp of first frame
