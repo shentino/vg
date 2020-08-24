@@ -73,7 +73,7 @@ static void commit()
 	}
 }
 
-static void handle_keydown_event(SDL_Event &e)
+static void handle_keydown(SDL_Event &e)
 {
 	switch(e.key.keysym.scancode) {
 	/* zooming */
@@ -193,7 +193,7 @@ static void handle_events()
 			break;
 
 		case SDL_KEYDOWN:
-			handle_keydown_event(e);
+			handle_keydown(e);
 			break;
 		}
 	}
