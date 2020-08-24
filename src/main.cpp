@@ -27,7 +27,7 @@ static Mix_Chunk *ticksound; // the cursor moved
 static Mix_Chunk *zoomsound; // we zoomed in or out
 static Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
 
-static inline int value(int x, int y)
+static int value(int x, int y)
 {
 	int highest = 0;
 
@@ -47,7 +47,7 @@ static inline int value(int x, int y)
 	return highest - 0x11;
 }
 
-static inline void calculate()
+static void calculate()
 {
 	for (int i = 0; i < boardsize * boardsize; i++) {
 		delta[i] = 0;
@@ -60,7 +60,7 @@ static inline void calculate()
 	}
 }
 
-static inline void commit()
+static void commit()
 {
 	for (int y = 0; y < boardsize; y++) {
 		for (int x = 0; x < boardsize; x++) {
