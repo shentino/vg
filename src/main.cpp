@@ -352,6 +352,21 @@ int main(int argc, char *argv[], char *envp[])
 			// underrun
 			frametime = now;
 			frame = 0;
+		} else if (usecs > 1500000 / framerate) {
+			// overrun, someone's probably tinkering with the system clock
+			// make sure we don't stall forever
+			usec = now.tv_usec;
+			sec = now.tv_sec;
+
+			usec += 1000000 / framerate;
+			sec += usec / 1000000;
+			usec %= 1000000;
+
+			frametime.tv_sec = sec;
+			frametime.tv_usec = usec;
+			frame = 0;
+
+			usleep(1000000 / framerate);
 		} else {
 			usleep(usecs);
 		}
