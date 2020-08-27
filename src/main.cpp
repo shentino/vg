@@ -202,9 +202,34 @@ static void handle_events()
 				return;
 
 			case SDL_WINDOWEVENT_RESIZED:
-				// just to note that we don't care about this.
-				// the gc's query the window size for every frame they draw, and if
-				// we get resized in the middle of a frame there's nothing we can do about it anyway
+				{
+					SDL_Window *buddy;
+
+					Uint32 wid = e.window.windowID;
+					int w = e.window.data1;
+					int h = e.window.data2;
+
+					if (wid == sdlwinid) {
+						buddy = SDL_GetWindowFromID(openglwinid);
+					} else if (wid = openglwinid) {
+						buddy = SDL_GetWindowFromID(sdlwinid);
+					} else {
+						throw runtime_error("Unknown window in SDL event");
+					}
+
+					if (!buddy) {
+						throw runtime_error(SDL_GetError());
+					}
+
+					int cw, ch;
+
+					SDL_GetWindowSize(buddy, &cw, &ch);
+
+					// don't redundantly resize to avoid an infinite resize event loop
+					if (w != cw || h != ch) {
+						SDL_SetWindowSize(buddy, w, h);
+					}
+				}
 				break;
 			}
 			break;
