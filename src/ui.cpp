@@ -70,7 +70,7 @@ void ui::click(int mx, int my)
 	tx = (mx - ox) / zoom;
 	ty = (my - oy) / zoom;
 
-	if (tx < 0 || tx >= bx || ty < 0 || ty >= by) {
+	if (tx <= 0 || tx > bx || ty <= 0 || ty > by) {
 		Mix_PlayChannel(1, bumpsound, 0);
 		return;
 	}
