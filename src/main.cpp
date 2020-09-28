@@ -22,9 +22,9 @@ static bool quit = false;
 static ui ui;
 
 static Mix_Chunk *oceansound; // background sound
-
-static Mix_Chunk *ticksound; // the cursor moved
 static Mix_Chunk *zoomsound; // we zoomed in or out
+
+Mix_Chunk *clicksound; // the cursor moved
 Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
 
 static Uint32 sdlwinid;
@@ -101,7 +101,7 @@ static void handle_keydown(SDL_Event &e)
 	/* cursor movement */
 	case SDL_SCANCODE_RIGHT:
 		if (ui.cx < boardsize - 1) {
-			Mix_PlayChannel(1, ticksound, 0);
+			Mix_PlayChannel(1, clicksound, 0);
 			ui.cx++;
 		} else {
 			Mix_PlayChannel(1, bumpsound, 0);
@@ -110,7 +110,7 @@ static void handle_keydown(SDL_Event &e)
 
 	case SDL_SCANCODE_LEFT:
 		if (ui.cx > 0) {
-			Mix_PlayChannel(1, ticksound, 0);
+			Mix_PlayChannel(1, clicksound, 0);
 			ui.cx--;
 		} else {
 			Mix_PlayChannel(1, bumpsound, 0);
@@ -119,7 +119,7 @@ static void handle_keydown(SDL_Event &e)
 
 	case SDL_SCANCODE_DOWN:
 		if (ui.cy < boardsize - 1) {
-			Mix_PlayChannel(1, ticksound, 0);
+			Mix_PlayChannel(1, clicksound, 0);
 			ui.cy++;
 		} else {
 			Mix_PlayChannel(1, bumpsound, 0);
@@ -128,7 +128,7 @@ static void handle_keydown(SDL_Event &e)
 
 	case SDL_SCANCODE_UP:
 		if (ui.cy > 0) {
-			Mix_PlayChannel(1, ticksound, 0);
+			Mix_PlayChannel(1, clicksound, 0);
 			ui.cy--;
 		} else {
 			Mix_PlayChannel(1, bumpsound, 0);
@@ -282,7 +282,7 @@ int main(int argc, char *argv[], char *envp[])
 	// 0 = music
 	// 1 = ui
 
-	ticksound = Mix_LoadWAV("sound/tick.wav");
+	clicksound = Mix_LoadWAV("sound/click.wav");
 	zoomsound = Mix_LoadWAV("sound/zoom.wav");
 	oceansound = Mix_LoadWAV("sound/ocean.wav");
 	bumpsound = Mix_LoadWAV("sound/bump.wav");

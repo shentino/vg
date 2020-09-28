@@ -8,7 +8,8 @@
 
 const float pi = atanf(1.0f) * 4.0f; 
 
-extern Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
+extern Mix_Chunk *clicksound; // cursor moved
+extern Mix_Chunk *bumpsound; // error
 
 ui::ui()
 :cx(0),cy(0),zoom(32),cursorframe(0),lag(0)
@@ -74,6 +75,8 @@ void ui::click(int mx, int my)
 		Mix_PlayChannel(1, bumpsound, 0);
 		return;
 	}
+
+	Mix_PlayChannel(1, clicksound, 0);
 
 	cx = tx / zoom;
 	cy = ty / zoom;
