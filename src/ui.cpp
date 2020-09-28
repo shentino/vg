@@ -25,12 +25,12 @@ void ui::draw(gc *g, const board *b)
 	sx = g->get_width();
 	sy = g->get_height();
 
-	ox = offset(cellsize, sx, sx * cellsize, cx * cellsize + cellsize / 2);
-	oy = offset(cellsize, sy, sy * cellsize, cy * cellsize + cellsize / 2);
+	ox = offset(zoom, sx, sx * zoom, cx * zoom + zoom / 2);
+	oy = offset(zoom, sy, sy * zoom, cy * zoom + zoom / 2);
 
 	g->clear(0x0055aa + (lag << 16)); // ocean
 	b->draw(g, zoom, cx, cy, blue | (green << 8) | (red << 16));
-	g->box(cx * zoom + ox, cy * cellsize + oy, cellsize, cellsize, cc, cellsize / 8);
+	g->box(cx * zoom + ox, cy * zoom + oy, zoom, zoom, cc, zoom / 8);
 	g->box(mx - 2, my - 2, 5, 5, mcolor, 0);
 	g->render();
 }
