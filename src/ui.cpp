@@ -30,6 +30,7 @@ void ui::draw(gc *g, const board *b)
 
 	g->clear(0x0055aa + (lag << 16)); // ocean
 	b->draw(g, zoom, cx, cy, blue | (green << 8) | (red << 16));
+	g->box(cx * zoom + ox, cy * cellsize + oy, cellsize, cellsize, cc, cellsize / 8);
 	g->box(mx - 2, my - 2, 5, 5, mcolor, 0);
 	g->render();
 }

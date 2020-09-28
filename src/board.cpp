@@ -32,7 +32,5 @@ void board::draw(gc *gc, int cellsize, int ox, int oy, int cc) const
 			);
 		}
 	}
-
-	gc->box(cx * cellsize + ox, cy * cellsize + oy, cellsize, cellsize, cc, cellsize / 8);
 }
 
