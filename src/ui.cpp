@@ -67,16 +67,16 @@ void ui::click(int mx, int my)
 	ox = offset(zoom, sx, bx * zoom, cx * zoom + zoom / 2);
 	oy = offset(zoom, sy, by * zoom, cy * zoom + zoom / 2);
 
-	tx = (mx - ox) / zoom;
-	ty = (my - oy) / zoom;
+	tx = (mx - ox);
+	ty = (my - oy);
 
-	if (tx < 0 || tx >= bx || ty < 0 || ty >= by) {
+	if (tx < 0 || tx >= bx * zoom || ty < 0 || ty >= by * zoom) {
 		Mix_PlayChannel(1, bumpsound, 0);
 		return;
 	}
 
-	cx = tx;
-	cy = ty;
+	cx = tx / zoom;
+	cy = ty / zoom;
 }
 
 void ui::lagged()
