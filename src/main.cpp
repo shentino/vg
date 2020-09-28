@@ -206,6 +206,20 @@ static void handle_events()
 				quit = true;
 				return;
 
+			case SDL_WINDOWEVENT_ENTER:
+				{
+					SDL_Window *entered;
+
+					entered = SDL_GetWindowFromID(e.window.windowID);
+
+					if (!entered) {
+						throw runtime_error("Unknown window in SDL event");
+					}
+
+					SDL_SetWindowInputFocus(entered);
+				}
+				break;
+
 			case SDL_WINDOWEVENT_RESIZED:
 				{
 					SDL_Window *buddy;
