@@ -55,6 +55,17 @@ void ui::tick()
 	}
 }
 
+void ui::click(int mx, int my)
+{
+	int ox, oy;
+
+	ox = offset(zoom, sx, bx * zoom, cx * zoom + zoom / 2);
+	oy = offset(zoom, sy, by * zoom, cy * zoom + zoom / 2);
+
+	cx = (mx - ox) / zoom;
+	cy = (my - oy) / zoom;
+}
+
 void ui::lagged()
 {
 	lag = 0xff;
