@@ -21,10 +21,12 @@ class ui
 	// cursor flashes black and white twice a second
 	// 15 frames white, 15 frames black, repeat
 
+	int sx, sy; // window size, cached at draw time
+	int bx, by; // board size, cached at draw time
+
 public:
 	int cx, cy; // cursor position
 	int mx, my; // mouse position
-	int sx, sy; // window size
 
 	uint32_t mcolor; // mouse color
 	int zoom; // zoom factor
