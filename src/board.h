@@ -17,6 +17,15 @@ public:
 	board(int x, int y);
 	virtual ~board();
 
+	int get_width() const
+	{
+		return sx;
+	}
+	int get_height() const
+	{
+		return sy;
+	}
+
 	void draw(gc *gc, int cellsize, int ox, int oy, int cc) const;
 
 	uint8_t &cellat(int x, int y)

@@ -11,6 +11,13 @@ ui::ui()
 {
 }
 
+// static int offset(int c, int w, int b, int f);
+
+// c - collar size
+// w - window size
+// b - board size
+// f - focus point
+
 void ui::draw(gc *g, const board *b)
 {
 	int red, green, blue;
@@ -25,12 +32,12 @@ void ui::draw(gc *g, const board *b)
 	sx = g->get_width();
 	sy = g->get_height();
 
-	ox = offset(zoom, sx, sx * zoom, cx * zoom + zoom / 2);
-	oy = offset(zoom, sy, sy * zoom, cy * zoom + zoom / 2);
+	ox = offset(zoom, sx, b->get_width() * zoom, cx * zoom + zoom / 2);
+	oy = offset(zoom, sy, b->get_height() * zoom, cy * zoom + zoom / 2);
 
 	g->clear(0x0055aa + (lag << 16)); // ocean
-	b->draw(g, zoom, cx, cy, blue | (green << 8) | (red << 16));
-	g->box(cx * zoom + ox, cy * zoom + oy, zoom, zoom, cc, zoom / 8);
+	b->draw(g, zoom, ox, oy, blue | (green << 8) | (red << 16));
+	g->box(cx * zoom + ox, cy * zoom + oy, zoom, zoom, ((red & 0xff) << 16) + ((green & 0xff) << 8) + (blue & 0xff), zoom / 8);
 	g->box(mx - 2, my - 2, 5, 5, mcolor, 0);
 	g->render();
 }
