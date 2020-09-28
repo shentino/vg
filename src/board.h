@@ -30,14 +30,13 @@ public:
 		return cells[sx * y + x];
 	}
 
-	// c - collar size
-	// w - window size
-	// b - board size
-	// f - focus point
-
 	// returns: where to draw the home end of the board
 	static int offset(int c, int w, int b, int f)
 	{
+		// c - collar size
+		// w - window size
+		// b - board size
+		// f - focus point
 		int o;
 
 		if (w >= (b + c * 2)) {
