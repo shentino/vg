@@ -32,8 +32,11 @@ void ui::draw(gc *g, const board *b)
 	sx = g->get_width();
 	sy = g->get_height();
 
-	ox = offset(zoom, sx, b->get_width() * zoom, cx * zoom + zoom / 2);
-	oy = offset(zoom, sy, b->get_height() * zoom, cy * zoom + zoom / 2);
+	bx = b->get_width();
+	by = b->get_height();
+
+	ox = offset(zoom, sx, bx * zoom, cx * zoom + zoom / 2);
+	oy = offset(zoom, sy, by * zoom, cy * zoom + zoom / 2);
 
 	g->clear(0x0055aa + (lag << 16)); // ocean
 	b->draw(g, zoom, ox, oy, blue | (green << 8) | (red << 16));
