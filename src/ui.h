@@ -24,6 +24,7 @@ class ui
 public:
 	int cx, cy; // cursor position
 	int mx, my; // mouse position
+	int sx, sy; // window size
 	uint32_t mcolor; // mouse color
 	int zoom; // zoom factor
 
