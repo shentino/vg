@@ -299,7 +299,7 @@ int main(int argc, char *argv[], char *envp[])
 	/* end of first frame */
 
 	for (;;) {
-		handle_events();		
+		handle_events();
 
 		if (quit) {
 			goto quit;
