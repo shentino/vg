@@ -180,6 +180,11 @@ static void handle_mousemotion(SDL_Event &e)
 	ui.my = e.motion.y;
 }
 
+static void handle_mousebutton(SDL_Event &e)
+{
+	ui.click(e.button.x, e.button.y);
+}
+
 static void handle_events()
 {
 	SDL_Event e;
@@ -240,6 +245,10 @@ static void handle_events()
 
 		case SDL_MOUSEMOTION:
 			handle_mousemotion(e);
+			break;
+
+		case SDL_MOUSEBUTTONDOWN:
+			handle_mousebutton(e);
 			break;
 		}
 	}
