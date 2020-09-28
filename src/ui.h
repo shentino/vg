@@ -31,6 +31,7 @@ public:
 
 	void draw(gc *g, const board *b);
 	void tick(); // once per frame
+	void click(int x, int y); // mouse click
 	void lagged(); // flag a lag so we can send an "ouch" color
 };
 
