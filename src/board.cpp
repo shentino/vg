@@ -15,17 +15,8 @@ board::~board()
 	sx = sy = -1;
 }
 
-void board::draw(gc *gc, int cellsize, int cx, int cy, int cc) const
+void board::draw(gc *gc, int cellsize, int ox, int oy, int cc) const
 {
-	int gx, gy;
-	int ox, oy;
-
-	gx = gc->get_width();
-	gy = gc->get_height();
-
-	ox = offset(cellsize, gx, sx * cellsize, cx * cellsize + cellsize / 2);
-	oy = offset(cellsize, gy, sy * cellsize, cy * cellsize + cellsize / 2);
-
 	for (int y = 0; y < sy; y++) {
 		for (int x = 0; x < sx; x++) {
 			uint16_t r, g, b, c;

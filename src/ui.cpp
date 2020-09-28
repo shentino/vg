@@ -14,10 +14,20 @@ ui::ui()
 void ui::draw(gc *g, const board *b)
 {
 	int red, green, blue;
+	int ox, oy;
 
 	red = green = blue = ((cursorframe / 15) & 1) ? 0xff : 0x00;
 
 	g->prepare();
+
+	// future clicks will be based on the frame we're currently drawing, capture the size now
+
+	sx = g->get_width();
+	sy = g->get_height();
+
+	ox = offset(cellsize, gx, sx * cellsize, cx * cellsize + cellsize / 2);
+	oy = offset(cellsize, gy, sy * cellsize, cy * cellsize + cellsize / 2);
+
 	g->clear(0x0055aa + (lag << 16)); // ocean
 	b->draw(g, zoom, cx, cy, blue | (green << 8) | (red << 16));
 	g->box(mx - 2, my - 2, 5, 5, mcolor, 0);
