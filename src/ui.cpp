@@ -1,10 +1,14 @@
 #include <cmath>
 
+#include <SDL2/SDL_mixer.h>
+
 #include "ui.h"
 #include "gc.h"
 #include "board.h"
 
 const float pi = atanf(1.0f) * 4.0f; 
+
+extern Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
 
 ui::ui()
 :cx(0),cy(0),zoom(32),cursorframe(0),lag(0)
@@ -58,12 +62,21 @@ void ui::tick()
 void ui::click(int mx, int my)
 {
 	int ox, oy;
+	int tx, ty;
 
 	ox = offset(zoom, sx, bx * zoom, cx * zoom + zoom / 2);
 	oy = offset(zoom, sy, by * zoom, cy * zoom + zoom / 2);
 
-	cx = (mx - ox) / zoom;
-	cy = (my - oy) / zoom;
+	tx = (mx - ox) / zoom;
+	ty = (my - oy) / zoom;
+
+	if (tx < 0 || tx >= bx || ty < 0 || ty >= by) {
+		Mix_PlayChannel(1, bumpsound, 0);
+		return;
+	}
+
+	cx = tx;
+	cy = ty;
 }
 
 void ui::lagged()
