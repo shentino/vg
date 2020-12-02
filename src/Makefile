@@ -6,11 +6,13 @@ install: vg
 clean:
 	rm *.o vg
 
-vg: main.o sdlglgc.o sdlgc.o board.o gc.o ui.o
-	g++ -o vg main.o sdlglgc.o sdlgc.o board.o gc.o ui.o `sdl2-config --libs` -lSDL2_mixer
+vg: main.o sdlglgc.o sdlgc.o board.o gc.o ui.o framer.o
+	g++ -o vg main.o sdlglgc.o sdlgc.o board.o gc.o ui.o framer.o `sdl2-config --libs` -lSDL2_mixer
 
-main.o: main.cpp sdlgc.h gc.h
+main.o: main.cpp sdlgc.h gc.h framer.h
 	g++ -c main.cpp -o main.o `sdl2-config --cflags` -ggdb3
+framer.o: framer.cpp framer.h
+	g++ -c framer.cpp -o framer.o
 board.o: board.cpp gc.h
 	g++ -c board.cpp -o board.o
 gc.o: gc.cpp gc.h
