@@ -21,6 +21,8 @@ static short delta[boardsize * boardsize];
 static board b(boardsize, boardsize);
 static bool quit = false;
 static ui ui;
+static framer f;
+
 
 static Mix_Chunk *oceansound; // background sound
 static Mix_Chunk *zoomsound; // we zoomed in or out
@@ -299,8 +301,10 @@ int main(int argc, char *argv[], char *envp[])
 	Mix_Volume(0, MIX_MAX_VOLUME / 2);
 	Mix_PlayChannel(0, oceansound, -1);
 
+
 	/* first frame */
 	handle_events();
+
 	if (quit) {
 		goto quit;
 	}
@@ -308,8 +312,6 @@ int main(int argc, char *argv[], char *envp[])
 	// draw initial board
 	ui.draw(&sgc, &b);
 	ui.draw(&ggc, &b);
-
-	framer f;
 
 	f.set_framerate(framerate);
 
