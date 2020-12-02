@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
+#include "framer.h"
 #include "board.h"
 #include "sdlgc.h"
 #include "sdlglgc.h"
@@ -270,12 +271,6 @@ static void handle_events()
 
 int main(int argc, char *argv[], char *envp[])
 {
-	struct timeval now;
-	struct timeval frametime;
-	struct timeval future;
-
-	int frame = 0; /* number of frames since last checkpoint */
-
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		throw runtime_error(SDL_GetError());
 	}
@@ -304,11 +299,6 @@ int main(int argc, char *argv[], char *envp[])
 	Mix_Volume(0, MIX_MAX_VOLUME / 2);
 	Mix_PlayChannel(0, oceansound, -1);
 
-	// set timestamp of first frame
-	gettimeofday(&now, NULL);
-	frametime = now;
-	frame = 0;
-
 	/* first frame */
 	handle_events();
 	if (quit) {
@@ -319,7 +309,9 @@ int main(int argc, char *argv[], char *envp[])
 	ui.draw(&sgc, &b);
 	ui.draw(&ggc, &b);
 
-	/* end of first frame */
+	framer f;
+
+	f.set_framerate(framerate);
 
 	for (;;) {
 		handle_events();
@@ -346,53 +338,7 @@ int main(int argc, char *argv[], char *envp[])
 		ui.draw(&sgc, &b);
 		ui.draw(&ggc, &b);
 
-		frame++;
-
-		if (frame >= framerate) {
-			frame -= framerate;
-			frametime.tv_sec++;
-		}
-
-		// wait for the next frame
-
-		// first, calculate when we should resume
-		int usec = (1000000 * frame / framerate) + frametime.tv_usec;
-		int sec = frametime.tv_sec;
-
-		sec += usec / 1000000;
-		usec %= 1000000;
-
-		future.tv_sec = sec;
-		future.tv_usec = usec;
-
-		// second, calculate how long to delay
-		gettimeofday(&now, NULL);
-
-		int usecs = ((int)future.tv_sec - (int)now.tv_sec) * 1000000;
-		usecs += ((int)future.tv_usec - (int)now.tv_usec);
-
-		if (usecs < 0) {
-			// underrun
-			frametime = now;
-			frame = 0;
-		} else if (usecs > 1500000 / framerate) {
-			// overrun, someone's probably tinkering with the system clock
-			// make sure we don't stall forever
-			usec = now.tv_usec;
-			sec = now.tv_sec;
-
-			usec += 1000000 / framerate;
-			sec += usec / 1000000;
-			usec %= 1000000;
-
-			frametime.tv_sec = sec;
-			frametime.tv_usec = usec;
-			frame = 0;
-
-			usleep(1000000 / framerate);
-		} else {
-			usleep(usecs);
-		}
+		f.next();
 	}
 
 quit:
