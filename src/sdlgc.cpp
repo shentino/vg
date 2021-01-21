@@ -94,4 +94,3 @@ void sdlgc::box(int x, int y, int w, int h, int c, int lw)
 		SDL_FillRect(scr, &r, SDL_MapRGB(scr->format, (c >> 16) & 0xff, (c >> 8) & 0xff, c & 0xff));
 	}
 }
-

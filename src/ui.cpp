@@ -12,7 +12,7 @@ extern Mix_Chunk *clicksound; // cursor moved
 extern Mix_Chunk *bumpsound; // error
 
 ui::ui()
-:cx(0),cy(0),zoom(32),cursorframe(0),lag(0)
+:cx(0),cy(0),zoom(32),cursorframe(0)
 {
 }
 
@@ -28,7 +28,7 @@ void ui::draw(gc *g, const board *b)
 	int red, green, blue;
 	int ox, oy;
 
-	red = green = blue = ((cursorframe / 15) & 1) ? 0xff : 0x00;
+	red = green = blue = ((cursorframe / 15) & 1) ? 0x00 : 0xff;
 
 	g->prepare();
 
@@ -80,9 +80,4 @@ void ui::click(int mx, int my)
 
 	cx = tx / zoom;
 	cy = ty / zoom;
-}
-
-void ui::lagged()
-{
-	lag = 0xff;
 }
