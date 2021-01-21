@@ -27,7 +27,7 @@ void board::draw(gc *gc, int cellsize, int ox, int oy, int cc) const
 			g = (c * 0xff + (0xff - c) * 0x55) / 255;
 			b = (c * 0x00 + (0xff - c) * 0x00) / 255;
 
-			gc->box(x * cellsize + ox, y * cellsize + oy, cellsize, cellsize, ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff), 0);
+			gc->box(x * cellsize + ox, y * cellsize + oy, cellsize, cellsize, ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 		}
 	}
 }

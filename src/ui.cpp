@@ -33,14 +33,14 @@ void ui::draw(gc *g, const board *b)
 	bx = b->get_width();
 	by = b->get_height();
 
-	g->clear(0x0055aa + (lag << 16)); // ocean
-	b->draw(g, zoom, ox, oy, blue | (green << 8) | (red << 16));
+	int ox = offset(zoom, sx, bx * zoom, cx * zoom + zoom / 2);
+	int oy = offset(zoom, sy, by * zoom, cy * zoom + zoom / 2);
+
+	g->clear(0x0055aa); // ocean
+	b->draw(g, zoom, ox, oy, 0xffffff);
 
 	if ((cursorframe / 15) & 1) {
-		ox = offset(zoom, sx, bx * zoom, cx * zoom + zoom / 2);
-		oy = offset(zoom, sy, by * zoom, cy * zoom + zoom / 2);
-
-		g->box(cx * zoom + ox, cy * zoom + oy, zoom, zoom, ((red & 0xff) << 16) + ((green & 0xff) << 8) + (blue & 0xff));
+		g->box(cx * zoom + ox, cy * zoom + oy, zoom, zoom, 0xffffff);
 	}
 
 	g->render();
@@ -50,10 +50,6 @@ void ui::tick()
 {
 	cursorframe++;
 	cursorframe %= 60;
-
-	if (lag) {
-		lag--;
-	}
 }
 
 void ui::click(int mx, int my)
