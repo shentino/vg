@@ -45,7 +45,7 @@ public:
 
 	/* drawing primitives */
 	virtual void clear(int c) = 0;
-	virtual void box(int x, int y, int w, int h, int c, int lw) = 0;
+	virtual void box(int x, int y, int w, int h, int c) = 0;
 };
 
 #endif

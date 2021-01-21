@@ -24,7 +24,7 @@ public:
 	virtual void render();
 
 	virtual void clear(int c);
-	virtual void box(int x, int y, int w, int h, int c, int lw);
+	virtual void box(int x, int y, int w, int h, int c);
 };
 
 #endif
