@@ -16,7 +16,7 @@ framer.o: framer.cpp framer.h
 board.o: board.cpp gc.h
 	g++ -ggdb3 -c board.cpp -o board.o
 agent.o: agent.cpp agent.h
-	g++ -ggdb3 -c agent.cpp -o agemt.o
+	g++ -ggdb3 -c agent.cpp -o agent.o
 gc.o: gc.cpp gc.h
 	g++ -ggdb3 -c gc.cpp -o gc.o
 ui.o: ui.cpp ui.h
