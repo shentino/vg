@@ -12,7 +12,7 @@ extern Mix_Chunk *clicksound; // cursor moved
 extern Mix_Chunk *bumpsound; // error
 
 ui::ui()
-:cx(0),cy(0),zoom(32),cursorframe(0)
+:cx(0),cy(0),zoom(8),cursorframe(0)
 {
 }
 

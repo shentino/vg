@@ -19,7 +19,7 @@ using namespace std;
 
 extern void handle_events();
 
-extern const int boardsize = 32;
+extern const int boardsize = 64;
 
 static const int framerate = 60;
 static short delta[boardsize * boardsize];
