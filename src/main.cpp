@@ -215,6 +215,10 @@ int main(int argc, char *argv[], char *envp[])
 		goto quit;
 	}
 
+	while (agents.size() < 20) {
+		create_agent();
+	}
+
 	// draw initial board
 	ui.draw_board(&sgc, b);
 	ui.draw_board(&ggc, b);
