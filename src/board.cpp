@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <cstring>
 
 #include "board.h"
 #include "gc.h"
@@ -7,6 +8,8 @@ board::board(int x, int y)
 :sx(x),sy(y)
 {
 	cells = new uint8_t[sx * sy];
+
+	memset(cells, 0, sx * sy);
 }
 
 board::~board()
