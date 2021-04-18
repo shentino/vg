@@ -38,6 +38,15 @@ Mix_Chunk *zoomsound; // we zoomed in or out
 Uint32 sdlwinid;
 Uint32 openglwinid;
 
+static void randomize()
+{
+	timeval tv;
+
+	gettimeofday(&tv, NULL);
+
+	srand48(tv.tv_sec ^ tv.tv_usec);
+}
+
 static int value(int x, int y)
 {
 	int highest = 0;
