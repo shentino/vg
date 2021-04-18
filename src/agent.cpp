@@ -2,6 +2,12 @@
 #include "board.h"
 #include "gc.h"
 
+using namespace std;
+
+agent::~agent()
+{
+}
+
 // check the board, return which way we want to go
 void agent::seek(board *b, float &dx, float &dy)
 {
