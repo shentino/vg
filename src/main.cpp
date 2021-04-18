@@ -20,7 +20,7 @@ using namespace std;
 static const int framerate = 60;
 static const int boardsize = 32;
 static short delta[boardsize * boardsize];
-static board b(boardsize, boardsize);
+static board *b;
 static bool quit = false;
 static ui ui;
 static framer f;
@@ -46,8 +46,8 @@ static int value(int x, int y)
 
 	for (y = ly; y <= hy; y++) {
 		for (x = lx; x <= hx; x++) {
-			if (b.cellat(x, y) > highest) {
-				highest = b.cellat(x, y);
+			if (b->cellat(x, y) > highest) {
+				highest = b->cellat(x, y);
 			}
 		}
 	}
@@ -72,10 +72,10 @@ static void commit()
 {
 	for (int y = 0; y < boardsize; y++) {
 		for (int x = 0; x < boardsize; x++) {
-			if (b.cellat(x, y) > delta[y * boardsize + x] && b.cellat(x, y) > 0) {
-				b.cellat(x, y)--;
-			} else if (b.cellat(x, y) < delta[y * boardsize + x] && b.cellat(x, y) < 0xff) {
-				b.cellat(x, y)++;
+			if (b->cellat(x, y) > delta[y * boardsize + x] && b->cellat(x, y) > 0) {
+				b->cellat(x, y)--;
+			} else if (b->cellat(x, y) < delta[y * boardsize + x] && b->cellat(x, y) < 0xff) {
+				b->cellat(x, y)++;
 			}
 		}
 	}
@@ -144,7 +144,7 @@ static void handle_keydown(SDL_Event &e)
 	case SDL_SCANCODE_A:
 		for (int y = 0; y < boardsize; y++) {
 			for (int x = 0; x < boardsize; x++) {
-				b.cellat(x, y) = 0xff;
+				b->cellat(x, y) = 0xff;
 			}
 		}
 		break;
@@ -152,20 +152,20 @@ static void handle_keydown(SDL_Event &e)
 	case SDL_SCANCODE_B:
 		for (int y = 0; y < boardsize; y++) {
 			for (int x = 0; x < boardsize; x++) {
-				b.cellat(x, y) = 0x55;
+				b->cellat(x, y) = 0x55;
 			}
 		}
 		break;
 
 	case SDL_SCANCODE_C:
 		for (int x = 0; x < boardsize; x++) {
-			b.cellat(x, ui.cy) = 0xff;
+			b->cellat(x, ui.cy) = 0xff;
 		}
 		break;
 
 	case SDL_SCANCODE_D:
 		for (int y = 0; y < boardsize; y++) {
-			b.cellat(ui.cx, y) = 0xff;
+			b->cellat(ui.cx, y) = 0xff;
 		}
 		break;
 	}
@@ -279,6 +279,8 @@ int main(int argc, char *argv[], char *envp[])
 		throw runtime_error(SDL_GetError());
 	}
 
+	b = new board(boardsize, boardsize);
+
 	sdlgc sgc("SDL Video Game Prototype - SDL");
 	sdlglgc ggc("SDL Video Game Prototype - GL");
 
@@ -303,7 +305,6 @@ int main(int argc, char *argv[], char *envp[])
 	Mix_Volume(0, MIX_MAX_VOLUME / 2);
 	Mix_PlayChannel(0, oceansound, -1);
 
-
 	/* first frame */
 	handle_events();
 
@@ -312,8 +313,8 @@ int main(int argc, char *argv[], char *envp[])
 	}
 
 	// draw initial board
-	ui.draw_board(&sgc, &b);
-	ui.draw_board(&ggc, &b);
+	ui.draw_board(&sgc, b);
+	ui.draw_board(&ggc, b);
 
 	f.set_framerate(framerate);
 
@@ -325,7 +326,7 @@ int main(int argc, char *argv[], char *envp[])
 		}
 
 		// game logic
-		uint8_t &c = b.cellat(ui.cx, ui.cy);
+		uint8_t &c = b->cellat(ui.cx, ui.cy);
 
 		for (int i = 0; i < 10; i++) {
 			if (c < 0xff) {
@@ -339,8 +340,8 @@ int main(int argc, char *argv[], char *envp[])
 		commit();
 
 		ui.tick();
-		ui.draw_board(&sgc, &b);
-		ui.draw_board(&ggc, &b);
+		ui.draw_board(&sgc, b);
+		ui.draw_board(&ggc, b);
 		ui.render(&sgc);
 		ui.render(&ggc);
 
