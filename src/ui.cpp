@@ -42,7 +42,10 @@ void ui::draw_board(gc *g, const board *b)
 	if ((cursorframe / 15) & 1) {
 		g->box(cx * zoom + ox, cy * zoom + oy, zoom, zoom, 0xffffff);
 	}
+}
 
+void ui::render(gc *g)
+{
 	g->render();
 }
 

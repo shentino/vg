@@ -339,8 +339,10 @@ int main(int argc, char *argv[], char *envp[])
 		commit();
 
 		ui.tick();
-		ui.draw(&sgc, &b);
-		ui.draw(&ggc, &b);
+		ui.draw_board(&sgc, &b);
+		ui.draw_board(&ggc, &b);
+		ui.render(&sgc);
+		ui.render(&ggc);
 
 		f.next();
 	}
