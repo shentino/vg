@@ -10,16 +10,26 @@ class agent
 	float health;
 
 public:
-	agent();
+	agent()
+	:x(-1),y(-1),health(-1)
+	{
+	}
+
 	virtual ~agent();
 
-	void move(float nx, float ny)
+	void set_position(float nx, float ny)
 	{
+		x = nx;
+		y = ny;
 	}
 	void get_position(float &ox, float &oy)
 	{
 		ox = x;
 		oy = y;
+	}
+	void set_health(float nh)
+	{
+		health = nh;
 	}
 	void get_health(float &oh)
 	{
