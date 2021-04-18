@@ -3,13 +3,14 @@
 #include "gc.h"
 
 // check the board, return which way we want to go
-void seek(board *b, float &dx, float &dy)
+void agent::seek(board *b, float &dx, float &dy)
 {
 }
 
 // burn health
-void tick()
+void agent::tick()
 {
+	health -= 1.0 / 60.0;
 }
 
 void agent::draw(gc *gc, int cellsize, int ox, int oy, int cc) const
