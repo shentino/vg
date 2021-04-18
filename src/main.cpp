@@ -150,8 +150,6 @@ static void process_agents()
 
 		agents.erase(corpse);
 
-		cerr << "Agent died" << endl;
-
 		delete corpse;
 
 		ab++;
