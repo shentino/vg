@@ -58,6 +58,8 @@ public:
 	}
 
 	void draw_board(gc *g, const board *b);
+	void render(gc *g);
+
 	void tick(); // once per frame
 	void click(int x, int y); // mouse click
 };
