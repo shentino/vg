@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <iostream>
+#include <set>
 
 #include <sys/time.h>
 #include <unistd.h>
@@ -12,6 +13,7 @@
 #include "sdlgc.h"
 #include "sdlglgc.h"
 #include "ui.h"
+#include "agent.h"
 
 using namespace std;
 
@@ -22,7 +24,7 @@ static board b(boardsize, boardsize);
 static bool quit = false;
 static ui ui;
 static framer f;
-
+static set<agent *> agents;
 
 static Mix_Chunk *oceansound; // background sound
 static Mix_Chunk *zoomsound; // we zoomed in or out
