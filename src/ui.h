@@ -10,6 +10,7 @@ this includes cursor position and zoom level and anything that the board and gc 
 
 class gc;
 class board;
+class agent;
 
 class ui
 {
@@ -58,6 +59,7 @@ public:
 	}
 
 	void draw_board(gc *g, const board *b);
+	void draw_agent(gc *g, const agent *a);
 	void render(gc *g);
 
 	void tick(); // once per frame

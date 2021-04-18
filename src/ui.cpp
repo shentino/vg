@@ -3,6 +3,7 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "ui.h"
+#include "agent.h"
 #include "gc.h"
 #include "board.h"
 
@@ -42,6 +43,14 @@ void ui::draw_board(gc *g, const board *b)
 	if ((cursorframe / 15) & 1) {
 		g->box(cx * zoom + ox, cy * zoom + oy, zoom, zoom, 0xffffff);
 	}
+}
+
+void ui::draw_agent(gc *g, const agent *a)
+{
+	int ox = offset(zoom, sx, bx * zoom, cx * zoom + zoom / 2);
+	int oy = offset(zoom, sy, by * zoom, cy * zoom + zoom / 2);
+
+	a->draw(g, zoom, ox, oy, 0x000000);
 }
 
 void ui::render(gc *g)

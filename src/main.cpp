@@ -247,10 +247,16 @@ int main(int argc, char *argv[], char *envp[])
 
 		calculate();
 		commit();
+		process_agents();
 
 		ui.tick();
+
 		ui.draw_board(&sgc, b);
 		ui.draw_board(&ggc, b);
+
+		draw_agents(&sgc);
+		draw_agents(&ggc);
+
 		ui.render(&sgc);
 		ui.render(&ggc);
 
