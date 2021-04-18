@@ -318,6 +318,8 @@ int main(int argc, char *argv[], char *envp[])
 
 	f.set_framerate(framerate);
 
+	ggc.maximize();
+
 	for (;;) {
 		handle_events();
 
