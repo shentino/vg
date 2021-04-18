@@ -23,7 +23,7 @@ ui::ui()
 // b - board size
 // f - focus point
 
-void ui::draw(gc *g, const board *b)
+void ui::draw_board(gc *g, const board *b)
 {
 	g->prepare();
 
