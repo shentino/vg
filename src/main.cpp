@@ -312,8 +312,8 @@ int main(int argc, char *argv[], char *envp[])
 	}
 
 	// draw initial board
-	ui.draw(&sgc, &b);
-	ui.draw(&ggc, &b);
+	ui.draw_board(&sgc, &b);
+	ui.draw_board(&ggc, &b);
 
 	f.set_framerate(framerate);
 
