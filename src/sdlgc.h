@@ -20,6 +20,8 @@ public:
 
 	Uint32 getwindowid();
 
+	void maximize();
+
 	virtual void prepare();
 	virtual void render();
 

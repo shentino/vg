@@ -38,6 +38,13 @@ Uint32 sdlgc::getwindowid()
 	return id;
 }
 
+/* window management */
+
+void sdlgc::maximize()
+{
+	SDL_MaximizeWindow(win);
+}
+
 /* frame management */
 
 void sdlgc::prepare()
