@@ -93,6 +93,89 @@ static void commit()
 	}
 }
 
+static void create_agent()
+{
+	agent *a = new agent;
+
+	a->set_position(lrand48() % (boardsize - 1), lrand48() % (boardsize - 1));
+	a->set_health(5.0 + drand48());
+
+	agents.insert(a);
+}
+
+static void process_agents()
+{
+	set<agent *>::iterator ab, ae;
+
+	set<agent *> hearse;
+
+	ab = agents.begin();
+	ae = agents.end();
+
+	while (ab != ae) {
+		agent *a;
+		float health;
+		float x, y;
+
+		a = *ab;
+
+		a->get_position(x, y);
+
+		uint8_t &f = b->cellat(x, y);
+
+		a->get_health(health);
+
+		if (health > 0.0) {
+			while (f > 0 && health < 7.0) {
+				f--;
+				health += 0.03;
+			}
+		}
+
+		a->set_health(health);
+		a->tick();
+
+		if (health < -5.0) {
+			hearse.insert(a);
+		}
+
+		ab++;
+	}
+
+	ab = hearse.begin();
+	ae = hearse.end();
+
+	while (ab != ae) {
+		agent *corpse = *ab;
+
+		agents.erase(corpse);
+
+		cerr << "Agent died" << endl;
+
+		delete corpse;
+
+		ab++;
+	}
+
+	while (agents.size() < 20) {
+		create_agent();
+	}
+}
+
+static void draw_agents(gc *g)
+{
+	set<agent *>::iterator ab, ae;
+
+	ab = agents.begin();
+	ae = agents.end();
+
+	while (ab != ae) {
+		ui.draw_agent(g, *ab);
+
+		ab++;
+	}
+}
+
 int main(int argc, char *argv[], char *envp[])
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
