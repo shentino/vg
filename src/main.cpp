@@ -169,9 +169,15 @@ static void draw_agents(gc *g)
 
 	while (ab != ae) {
 		ui.draw_agent(g, *ab);
-
 		ab++;
 	}
+}
+
+static void draw_frame(gc *g)
+{
+	ui.draw_board(g, b);
+	draw_agents(g);
+	ui.render(g);
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -249,14 +255,8 @@ int main(int argc, char *argv[], char *envp[])
 
 		ui.tick();
 
-		ui.draw_board(&sgc, b);
-		ui.draw_board(&ggc, b);
-
-		draw_agents(&sgc);
-		draw_agents(&ggc);
-
-		ui.render(&sgc);
-		ui.render(&ggc);
+		draw_frame(&sgc);
+		draw_frame(&ggc);
 
 		f.next();
 	}
