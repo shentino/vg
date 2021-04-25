@@ -45,6 +45,7 @@ static void randomize()
 	gettimeofday(&tv, NULL);
 
 	srand48(tv.tv_sec ^ tv.tv_usec);
+	srandom(tv.tv_sec ^ tv.tv_usec);
 }
 
 static int value(int x, int y)
@@ -229,7 +230,11 @@ int main(int argc, char *argv[], char *envp[])
 
 	f.set_framerate(framerate);
 
-	ggc.maximize();
+	if (random() & 0x1) {
+		ggc.maximize();
+	} else {
+		sgc.maximize();
+	}
 
 	for (;;) {
 		handle_events();
