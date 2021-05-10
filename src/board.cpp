@@ -41,4 +41,3 @@ void board::draw(gc *gc, int cellsize, int ox, int oy, int cc) const
 		}
 	}
 }
-
