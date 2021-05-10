@@ -31,6 +31,7 @@
 #include "sdlglgc.h"
 #include "ui.h"
 #include "agent.h"
+#include "audio.h"
 
 using namespace std;
 

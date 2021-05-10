@@ -18,4 +18,11 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
+#include <SDL2/SDL_Mixer.h>
+
+extern Mix_Chunk *oceansound; // background sound
+extern Mix_Chunk *clicksound; // the cursor moved
+extern Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
+extern Mix_Chunk *zoomsound; // we zoomed in or out
+
 #endif
