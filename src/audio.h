@@ -18,7 +18,7 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
-#include <SDL2/SDL_Mixer.h>
+#include <SDL2/SDL_mixer.h>
 
 extern Mix_Chunk *oceansound; // background sound
 extern Mix_Chunk *clicksound; // the cursor moved
