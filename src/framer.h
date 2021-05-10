@@ -1,3 +1,6 @@
+#ifndef FRAMER_H
+#define FRAMER_H
+
 #include <sys/time.h>
 
 class framer
@@ -16,3 +19,5 @@ public:
 	void reset();
 	void next();
 };
+
+#endif
