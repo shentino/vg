@@ -22,8 +22,8 @@ install: vg
 clean:
 	rm *.o vg
 
-vg: audio.o main.o sdlglgc.o sdlgc.o board.o gc.o ui.o framer.o agent.o sdl.o
-	g++ -ggdb3 -o vg audio.o main.o sdlglgc.o sdlgc.o board.o gc.o agent.o sdl.o ui.o framer.o `sdl2-config --libs` -lSDL2_mixer -lGL
+vg: agent.o audio.o board.o framer.o gc.o main.o sdl.o sdlglgc.o sdlgc.o ui.o
+	g++ -ggdb3 -o vg agent.o audio.o board.o framer.o gc.o main.o sdl.o sdlglgc.o sdlgc.o ui.o `sdl2-config --libs` -lSDL2_mixer -lGL
 
 agent.o: agent.cpp agent.h
 	g++ -ggdb3 -c agent.cpp -o agent.o
