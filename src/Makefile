@@ -27,6 +27,8 @@ vg: main.o sdlglgc.o sdlgc.o board.o gc.o ui.o framer.o agent.o sdl.o
 
 main.o: main.cpp sdlgc.h gc.h framer.h
 	g++ -ggdb3 -c main.cpp -o main.o `sdl2-config --cflags` -ggdb3
+audio.o: audio.cpp audio.h
+	g++ -ggdb3 -c audio.cpp -o audio.o
 sdl.o: sdl.cpp
 	g++ -ggdb3 -c sdl.cpp -o sdl.o
 framer.o: framer.cpp framer.h
