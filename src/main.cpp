@@ -43,14 +43,9 @@ static short delta[boardsize * boardsize];
 static framer f;
 static set<agent *> agents;
 
-static Mix_Chunk *oceansound; // background sound
-
 ui ui;
 board *b;
 bool quit = false;
-Mix_Chunk *clicksound; // the cursor moved
-Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
-Mix_Chunk *zoomsound; // we zoomed in or out
 
 Uint32 sdlwinid;
 Uint32 openglwinid;
