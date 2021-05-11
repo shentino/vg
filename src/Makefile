@@ -37,7 +37,7 @@ gc.o: gc.cpp gc.h
 	g++ -ggdb3 -c gc.cpp -o gc.o
 main.o: main.cpp sdlgc.h gc.h framer.h
 	g++ -ggdb3 -c main.cpp -o main.o `sdl2-config --cflags` -ggdb3
-sdl.o: sdl.cpp
+sdl.o: sdl.cpp audio.h
 	g++ -ggdb3 -c sdl.cpp -o sdl.o
 sdlgc.o: sdlgc.cpp gc.h sdlgc.h
 	g++ -ggdb3 -c sdlgc.cpp -o sdlgc.o `sdl2-config --cflags`

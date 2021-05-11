@@ -18,8 +18,8 @@
 #include <stdexcept>
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
 
+#include "audio.h"
 #include "board.h"
 #include "ui.h"
 
@@ -31,10 +31,6 @@ extern int sdlwinid;
 extern int openglwinid;
 extern const int boardsize;
 extern bool quit;
-
-extern Mix_Chunk *clicksound;
-extern Mix_Chunk *bumpsound;
-extern Mix_Chunk *zoomsound;
 
 static void handle_keydown(SDL_Event &e)
 {
