@@ -43,5 +43,5 @@ sdlgc.o: sdlgc.cpp gc.h sdlgc.h
 	g++ -ggdb3 -c sdlgc.cpp -o sdlgc.o `sdl2-config --cflags`
 sdlglgc.o: sdlglgc.cpp gc.h sdlgc.h sdlglgc.h
 	g++ -ggdb3 -c sdlglgc.cpp -o sdlglgc.o `sdl2-config --cflags`
-ui.o: ui.cpp ui.h
+ui.o: ui.cpp audio.h ui.h
 	g++ -ggdb3 -c ui.cpp -o ui.o

@@ -21,13 +21,11 @@
 
 #include "ui.h"
 #include "agent.h"
+#include "audio.h"
 #include "gc.h"
 #include "board.h"
 
 const float pi = atanf(1.0f) * 4.0f; 
-
-extern Mix_Chunk *clicksound; // cursor moved
-extern Mix_Chunk *bumpsound; // error
 
 ui::ui()
 :cx(0),cy(0),zoom(8),cursorframe(0)
