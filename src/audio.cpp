@@ -62,6 +62,6 @@ void play_sound(enum sfx s)
 		break;
 
 	case sfx_click:
-	case sfx_zoom:
+	case sfx_bump:
 	}
 }
