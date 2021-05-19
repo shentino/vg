@@ -208,19 +208,9 @@ int main(int argc, char *argv[], char *envp[])
 	sdlwinid = sgc.getwindowid();
 	openglwinid = ggc.getwindowid();
 
-	Mix_Init(MIX_INIT_FLAC);
-
-	if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 1, 512) < 0) {
-		throw runtime_error(Mix_GetError());
-	}
-
-	Mix_AllocateChannels(2);
-	// 0 = music
-	// 1 = ui
-
+	setup_mixer();
 	load_sounds();
 
-	Mix_Volume(0, MIX_MAX_VOLUME / 2);
 	Mix_PlayChannel(0, oceansound, -1);
 
 	/* first frame */
