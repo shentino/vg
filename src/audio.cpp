@@ -53,3 +53,12 @@ void start_music()
 {
 	Mix_PlayChannel(0, oceansound, -1);
 }
+
+void play_sound(enum sfx s)
+{
+	switch(s) {
+	case sfx_zoom:
+	case sfx_click:
+	case sfx_zoom:
+	}
+}
