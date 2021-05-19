@@ -57,7 +57,7 @@ static void handle_keydown(SDL_Event &e)
 	/* cursor movement */
 	case SDL_SCANCODE_RIGHT:
 		if (ui.cx < boardsize - 1) {
-			Mix_PlayChannel(1, clicksound, 0);
+			play_sound(sfx_click);
 			ui.cx++;
 		} else {
 			play_sound(sfx_bump);
@@ -66,7 +66,7 @@ static void handle_keydown(SDL_Event &e)
 
 	case SDL_SCANCODE_LEFT:
 		if (ui.cx > 0) {
-			Mix_PlayChannel(1, clicksound, 0);
+			play_sound(sfx_click);
 			ui.cx--;
 		} else {
 			play_sound(sfx_bump);
@@ -75,7 +75,7 @@ static void handle_keydown(SDL_Event &e)
 
 	case SDL_SCANCODE_DOWN:
 		if (ui.cy < boardsize - 1) {
-			Mix_PlayChannel(1, clicksound, 0);
+			play_sound(sfx_click);
 			ui.cy++;
 		} else {
 			play_sound(sfx_bump);
@@ -84,7 +84,7 @@ static void handle_keydown(SDL_Event &e)
 
 	case SDL_SCANCODE_UP:
 		if (ui.cy > 0) {
-			Mix_PlayChannel(1, clicksound, 0);
+			play_sound(sfx_click);
 			ui.cy--;
 		} else {
 			play_sound(sfx_bump);

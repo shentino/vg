@@ -62,6 +62,9 @@ void play_sound(enum sfx s)
 		break;
 
 	case sfx_click:
+		Mix_PlayChannel(1, clicksound, 0);
+		break;
+
 	case sfx_bump:
 		Mix_PlayChannel(1, zoomsound, 0);
 	}
