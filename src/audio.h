@@ -29,4 +29,11 @@ extern void load_sounds();
 extern void setup_mixer();
 extern void start_music();
 
+enum sfx
+{
+	sfx_click,
+	sfx_bump,
+	sfx_zoom
+};
+
 #endif
