@@ -48,3 +48,8 @@ void setup_mixer()
 
 	Mix_Volume(0, MIX_MAX_VOLUME / 2);
 }
+
+void start_music()
+{
+	Mix_PlayChannel(0, oceansound, -1);
+}

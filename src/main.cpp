@@ -210,8 +210,7 @@ int main(int argc, char *argv[], char *envp[])
 
 	setup_mixer();
 	load_sounds();
-
-	Mix_PlayChannel(0, oceansound, -1);
+	start_music();
 
 	/* first frame */
 	handle_events();

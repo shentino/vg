@@ -27,5 +27,6 @@ extern Mix_Chunk *zoomsound; // we zoomed in or out
 
 extern void load_sounds();
 extern void setup_mixer();
+extern void start_music();
 
 #endif
