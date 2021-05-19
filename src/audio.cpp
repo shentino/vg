@@ -21,3 +21,11 @@ Mix_Chunk *oceansound; // background sound
 Mix_Chunk *clicksound; // the cursor moved
 Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
 Mix_Chunk *zoomsound; // we zoomed in or out
+
+void load_sounds()
+{
+	clicksound = Mix_LoadWAV("sound/click.wav");
+	zoomsound = Mix_LoadWAV("sound/zoom.wav");
+	oceansound = Mix_LoadWAV("sound/ocean.wav");
+	bumpsound = Mix_LoadWAV("sound/bump.wav");
+}

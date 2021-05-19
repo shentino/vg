@@ -218,10 +218,7 @@ int main(int argc, char *argv[], char *envp[])
 	// 0 = music
 	// 1 = ui
 
-	clicksound = Mix_LoadWAV("sound/click.wav");
-	zoomsound = Mix_LoadWAV("sound/zoom.wav");
-	oceansound = Mix_LoadWAV("sound/ocean.wav");
-	bumpsound = Mix_LoadWAV("sound/bump.wav");
+	load_sounds();
 
 	Mix_Volume(0, MIX_MAX_VOLUME / 2);
 	Mix_PlayChannel(0, oceansound, -1);
