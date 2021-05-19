@@ -21,17 +21,17 @@
 
 using namespace std;
 
-Mix_Chunk *oceansound; // background sound
-Mix_Chunk *clicksound; // the cursor moved
 Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
+Mix_Chunk *clicksound; // the cursor moved
+Mix_Chunk *oceansound; // background sound
 Mix_Chunk *zoomsound; // we zoomed in or out
 
 void load_sounds()
 {
-	clicksound = Mix_LoadWAV("sound/click.wav");
-	zoomsound = Mix_LoadWAV("sound/zoom.wav");
-	oceansound = Mix_LoadWAV("sound/ocean.wav");
 	bumpsound = Mix_LoadWAV("sound/bump.wav");
+	clicksound = Mix_LoadWAV("sound/click.wav");
+	oceansound = Mix_LoadWAV("sound/ocean.wav");
+	zoomsound = Mix_LoadWAV("sound/zoom.wav");
 }
 
 void setup_mixer()
@@ -57,15 +57,15 @@ void start_music()
 void play_sound(enum sfx s)
 {
 	switch(s) {
-	case sfx_zoom:
-		Mix_PlayChannel(1, zoomsound, 0);
+	case sfx_bump:
+		Mix_PlayChannel(1, bumpsound, 0);
 		break;
 
 	case sfx_click:
 		Mix_PlayChannel(1, clicksound, 0);
 		break;
 
-	case sfx_bump:
-		Mix_PlayChannel(1, bumpsound, 0);
+	case sfx_zoom:
+		Mix_PlayChannel(1, zoomsound, 0);
 	}
 }
