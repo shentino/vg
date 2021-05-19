@@ -41,7 +41,7 @@ static void handle_keydown(SDL_Event &e)
 			play_sound(sfx_zoom);
 			ui.zoom++;
 		} else {
-			Mix_PlayChannel(1, bumpsound, 0);
+			play_sound(sfx_bump);
 		}
 		break;
 
@@ -50,7 +50,7 @@ static void handle_keydown(SDL_Event &e)
 			play_sound(sfx_zoom);
 			ui.zoom--;
 		} else {
-			Mix_PlayChannel(1, bumpsound, 0);
+			play_sound(sfx_bump);
 		}
 		break;
 
@@ -60,7 +60,7 @@ static void handle_keydown(SDL_Event &e)
 			Mix_PlayChannel(1, clicksound, 0);
 			ui.cx++;
 		} else {
-			Mix_PlayChannel(1, bumpsound, 0);
+			play_sound(sfx_bump);
 		}
 		break;
 
@@ -69,7 +69,7 @@ static void handle_keydown(SDL_Event &e)
 			Mix_PlayChannel(1, clicksound, 0);
 			ui.cx--;
 		} else {
-			Mix_PlayChannel(1, bumpsound, 0);
+			play_sound(sfx_bump);
 		}
 		break;
 
@@ -78,7 +78,7 @@ static void handle_keydown(SDL_Event &e)
 			Mix_PlayChannel(1, clicksound, 0);
 			ui.cy++;
 		} else {
-			Mix_PlayChannel(1, bumpsound, 0);
+			play_sound(sfx_bump);
 		}
 		break;
 
@@ -87,7 +87,7 @@ static void handle_keydown(SDL_Event &e)
 			Mix_PlayChannel(1, clicksound, 0);
 			ui.cy--;
 		} else {
-			Mix_PlayChannel(1, bumpsound, 0);
+			play_sound(sfx_bump);
 		}
 		break;
 
