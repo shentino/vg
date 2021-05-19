@@ -36,4 +36,6 @@ enum sfx
 	sfx_zoom
 };
 
+extern void play_sound(enum sfx s);
+
 #endif
