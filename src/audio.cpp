@@ -58,6 +58,9 @@ void play_sound(enum sfx s)
 {
 	switch(s) {
 	case sfx_zoom:
+		Mix_PlayChannel(1, zoomsound, 0);
+		break;
+
 	case sfx_click:
 	case sfx_zoom:
 	}

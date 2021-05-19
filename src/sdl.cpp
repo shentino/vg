@@ -38,7 +38,7 @@ static void handle_keydown(SDL_Event &e)
 	/* zooming */
 	case SDL_SCANCODE_KP_PLUS:
 		if (ui.zoom < 64) {
-			Mix_PlayChannel(1, zoomsound, 0);
+			play_sound(sfx_zoom);
 			ui.zoom++;
 		} else {
 			Mix_PlayChannel(1, bumpsound, 0);
@@ -47,7 +47,7 @@ static void handle_keydown(SDL_Event &e)
 
 	case SDL_SCANCODE_KP_MINUS:
 		if (ui.zoom > 1) {
-			Mix_PlayChannel(1, zoomsound, 0);
+			play_sound(sfx_zoom);
 			ui.zoom--;
 		} else {
 			Mix_PlayChannel(1, bumpsound, 0);
