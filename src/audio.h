@@ -20,11 +20,6 @@
 
 #include <SDL2/SDL_mixer.h>
 
-extern Mix_Chunk *oceansound; // background sound
-extern Mix_Chunk *clicksound; // the cursor moved
-extern Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
-extern Mix_Chunk *zoomsound; // we zoomed in or out
-
 extern void load_sounds();
 extern void setup_mixer();
 extern void start_music();
