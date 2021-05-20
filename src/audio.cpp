@@ -21,10 +21,10 @@
 
 using namespace std;
 
-Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
-Mix_Chunk *clicksound; // the cursor moved
-Mix_Chunk *oceansound; // background sound
-Mix_Chunk *zoomsound; // we zoomed in or out
+static Mix_Chunk *bumpsound; // either the cursor or the zoom hit a barrier
+static Mix_Chunk *clicksound; // the cursor moved
+static Mix_Chunk *oceansound; // background sound
+static Mix_Chunk *zoomsound; // we zoomed in or out
 
 void load_sounds()
 {
