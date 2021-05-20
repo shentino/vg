@@ -19,11 +19,11 @@
 
 #include <SDL2/SDL_mixer.h>
 
-#include "ui.h"
 #include "agent.h"
 #include "audio.h"
-#include "gc.h"
 #include "board.h"
+#include "gc.h"
+#include "ui.h"
 
 const float pi = atanf(1.0f) * 4.0f; 
 
