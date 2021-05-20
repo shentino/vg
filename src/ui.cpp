@@ -91,11 +91,11 @@ void ui::click(int mx, int my)
 	ty = (my - oy);
 
 	if (tx < 0 || tx >= bx * zoom || ty < 0 || ty >= by * zoom) {
-		Mix_PlayChannel(1, bumpsound, 0);
+		play_sound(sfx_bump);
 		return;
 	}
 
-	Mix_PlayChannel(1, clicksound, 0);
+	play_sound(sfx_click);
 
 	cx = tx / zoom;
 	cy = ty / zoom;
