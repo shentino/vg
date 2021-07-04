@@ -26,7 +26,6 @@
 
 class gc
 {
-private:
 	gc(const gc &); // copy constructor forbidden
 	gc &operator=(const gc &); // assignment forbidden
 
