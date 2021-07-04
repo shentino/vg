@@ -23,6 +23,10 @@
 #include "board.h"
 #include "ui.h"
 
+/* this file contains everything related to interfacing with SDL, or at least tries to */
+
+/* basic familiarity with SDL is assumed, please consult SDL documentation for explanation of any part of the SDL API, like keyboard scancodes for example */
+
 using namespace std;
 
 extern ui ui;
