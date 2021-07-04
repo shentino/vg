@@ -52,7 +52,7 @@ public:
 	}
 	int get_height()
 	{
-		return height;	
+		return height;
 	}
 
 	/* frame */
